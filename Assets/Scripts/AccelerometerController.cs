@@ -64,7 +64,6 @@ public class AccelerometerController : MonoBehaviour
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
-
 #endif
         MoveForward();
         Vector3 accelerometer = (Input.acceleration - calibrationVec)* .1f; //Get the acceleration, dull it down a bit
@@ -78,15 +77,11 @@ public class AccelerometerController : MonoBehaviour
         //if(Input.acceleration.x < calibrationVec.x)
         transform.Translate(accelerometer.x, 0, -accelerometer.z); //Move the object that this script is attached to
 
-        if (Mathf.Abs(accelerometer.x) < .03f)
+        if (Mathf.Abs(accelerometer.x) < .04f)
             accelerometer.x = 0;
 
-        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -accelerometer.x);
-        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x);
-
-        //DEBUG
-        tiltAmounts[0].text = "X: " + accelerometer.x;
-        tiltAmounts[1].text = "Z: " + accelerometer.z;
+        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer.x);
+        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer.x);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -104,12 +99,16 @@ public class AccelerometerController : MonoBehaviour
         {
             beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
         }
+
+        //DEBUG
+        tiltAmounts[0].text = "X: " + accelerometer.x;
+        tiltAmounts[1].text = "Z: " + accelerometer.z;
     }
 
     public void MoveForward()
     {
         if(forward)
-            transform.Translate(0, 0, 5*Time.deltaTime);
+            transform.Translate(0, 0, 5 * Time.deltaTime);
         if(backward)
             transform.Translate(0, 0, -5 * Time.deltaTime);
     }

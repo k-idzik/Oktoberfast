@@ -69,7 +69,6 @@ public class MenuManager : MonoBehaviour {
 
     public void GoToScene(int screenEnum)
     {
-        
         switch(screenEnum)
         {
             case (int)Screen.MAIN_MENU:
@@ -78,7 +77,7 @@ public class MenuManager : MonoBehaviour {
                 break;
 
             case (int)Screen.GAME:
-                SceneManager.LoadScene("Josh");
+                SceneManager.LoadScene("Game");
                 break;
         }
     }
