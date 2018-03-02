@@ -31,7 +31,10 @@ public class AccelerometerController : MonoBehaviour
 
             else if (i.tag == "Beer")
                 beers.Add(i);
-        }        
+        }
+
+        //Keep the screen on
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 	
 	//Update is called once per frame
