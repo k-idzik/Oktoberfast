@@ -18,6 +18,9 @@ public class AccelerometerController : MonoBehaviour
 	//Update is called once per frame
 	void Update()
     {
+#if UNITY_EDITOR //Debug controls
+        transform.Translate(Input.GetAxis("Horizontal") * .1f, 0, Input.GetAxis("Vertical") * .1f); //Move the object that this script is attached to
+#else
         Vector3 accelerometer = Input.acceleration * .1f; //Get the acceleration, dull it down a bit
 
         //Ignore really small movements
@@ -31,5 +34,6 @@ public class AccelerometerController : MonoBehaviour
         //DEBUG
         tiltAmounts[0].text = "X: " + accelerometer.x;
         tiltAmounts[1].text = "Z: " + accelerometer.z;
+#endif
     }
 }
