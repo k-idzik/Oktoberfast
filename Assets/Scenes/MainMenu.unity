@@ -194,8 +194,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 71304136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 640, y: 400, z: 0}
-  m_LocalScale: {x: 0.7027284, y: 0.7027284, z: 0.7027284}
+  m_LocalPosition: {x: 550, y: 309.5, z: 0}
+  m_LocalScale: {x: 0.5730324, y: 0.5730324, z: 0.5730324}
   m_Children:
   - {fileID: 270725059}
   - {fileID: 1452590843}
@@ -580,7 +580,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 569720846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -854, y: 79.20996, z: 0}
+  m_LocalPosition: {x: -854, y: 50.10907, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1529800528}
@@ -1026,7 +1026,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1452590842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 75.20996, z: 0}
+  m_LocalPosition: {x: 0, y: 46.10907, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1727639327}
@@ -1378,7 +1378,7 @@ MonoBehaviour:
 
     Sir Joel Shuart
 
-    Sir John Palmero
+    Sir John Palermo
 
     Sir Josh Malmquist'
 --- !u!222 &1601499437
