@@ -15,6 +15,16 @@ public class AccelerometerController : MonoBehaviour
     // rate at which stein turns
     public float steinRotateSpeed = 1f;
 
+    // rate at which beer spills
+    public float beerSpilledRate = 0.5f;
+
+    // values to hold upper corners of the steins and beers
+    private Vector3[] steinCorners;
+    private Vector3[] beerCorners;
+
+    float minRotation = -90;
+    float maxRotation = 90;
+
     //Use this for initialization
     void Start()
     {
@@ -31,16 +41,22 @@ public class AccelerometerController : MonoBehaviour
 
             else if (i.tag == "Beer")
                 beers.Add(i);
-        }        
+        }
+
+        // initialize corners arrays
+        steinCorners = new Vector3[4];
+        beerCorners = new Vector3[4];
     }
-	
-	//Update is called once per frame
-	void Update()
+
+    //Update is called once per frame
+    void Update()
     {
 #if UNITY_EDITOR //Debug controls
         transform.Translate(Input.GetAxis("Horizontal") * .1f, 0, Input.GetAxis("Vertical") * .1f); //Move the object that this script is attached to
+
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
+
 #else
         Vector3 accelerometer = Input.acceleration * .1f; //Get the acceleration, dull it down a bit
 
@@ -56,10 +72,26 @@ public class AccelerometerController : MonoBehaviour
             accelerometer.x = 0;
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -accelerometer.x);
-        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x;
+        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x);
         //DEBUG
         tiltAmounts[0].text = "X: " + accelerometer.x;
         tiltAmounts[1].text = "Z: " + accelerometer.z;
 #endif
+        // after stein rotates perform check to see if any beer has spilt
+        // first, retrieve upper right and upper left corners of stein and beer
+        // 1 = top left
+        // 2 = top right
+        steins[0].rectTransform.GetWorldCorners(steinCorners);
+        beers[0].rectTransform.GetWorldCorners(beerCorners);
+
+        // if either corner of the stein is greater than the corner of the beer the beer should spill
+        if (steinCorners[2].y < beerCorners[2].y)
+        {
+            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
+        }
+        else if (steinCorners[1].y < beerCorners[1].y)
+        {
+            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
+        }
     }
 }

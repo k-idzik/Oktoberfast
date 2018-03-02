@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steinRotateSpeed: 1
+  beerSpilledRate: 0.045
 --- !u!124 &124838578771988588
 Behaviour:
   m_ObjectHideFlags: 1
@@ -599,7 +600,7 @@ RectTransform:
   m_GameObject: {fileID: 1813164059839576}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: -19, z: 0}
-  m_LocalScale: {x: 2.0609708, y: 1.1547873, z: 1.6007451}
+  m_LocalScale: {x: 5.5756006, y: 1.1844648, z: 1.6418834}
   m_Children: []
   m_Father: {fileID: 224957999459015370}
   m_RootOrder: 0
