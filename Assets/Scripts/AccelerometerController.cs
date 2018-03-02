@@ -24,7 +24,10 @@ public class AccelerometerController : MonoBehaviour
 
     float minRotation = -90;
     float maxRotation = 90;
+    bool forward = false;
+    bool backward = false;
 
+    Vector3 calibrationVec;
     //Use this for initialization
     void Start()
     {
@@ -49,6 +52,8 @@ public class AccelerometerController : MonoBehaviour
 
         //Keep the screen on
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+        calibrationVec = Input.acceleration;
     }
 
     //Update is called once per frame
@@ -60,15 +65,17 @@ public class AccelerometerController : MonoBehaviour
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
 
-#else
-        Vector3 accelerometer = Input.acceleration * .1f; //Get the acceleration, dull it down a bit
-
+#endif
+        MoveForward();
+        Vector3 accelerometer = (Input.acceleration - calibrationVec)* .1f; //Get the acceleration, dull it down a bit
+        
         //Ignore really small movements
         if (Mathf.Abs(accelerometer.x) < .015f)
             accelerometer.x = 0;
         if (Mathf.Abs(accelerometer.z) < .015f)
             accelerometer.z = 0;
 
+        //if(Input.acceleration.x < calibrationVec.x)
         transform.Translate(accelerometer.x, 0, -accelerometer.z); //Move the object that this script is attached to
 
         if (Mathf.Abs(accelerometer.x) < .03f)
@@ -80,7 +87,7 @@ public class AccelerometerController : MonoBehaviour
         //DEBUG
         tiltAmounts[0].text = "X: " + accelerometer.x;
         tiltAmounts[1].text = "Z: " + accelerometer.z;
-#endif
+
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
         // 1 = top left
@@ -98,4 +105,19 @@ public class AccelerometerController : MonoBehaviour
             beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
         }
     }
+
+    public void MoveForward()
+    {
+        if(forward)
+            transform.Translate(0, 0, 5*Time.deltaTime);
+        if(backward)
+            transform.Translate(0, 0, -5 * Time.deltaTime);
+    }
+
+    public void SetForward(bool status)
+    {
+        forward = status;
+    }
+
+    public void setBackward(bool status) { backward = status; }
 }
