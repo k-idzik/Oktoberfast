@@ -14,9 +14,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Kevin.unity
     guid: df6565277e4573b4caff544f31cf7052
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 808b3e4c2dd94c74fb7335317156be26
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Josh.unity
     guid: 85abb81d018fd514abe21b3922bad524
