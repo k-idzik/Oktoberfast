@@ -7,12 +7,15 @@ public class AccelerometerController : MonoBehaviour
 {
     //DEBUG
     private UnityEngine.UI.Text[] tiltAmounts = new UnityEngine.UI.Text[2]; //UI text
+    private UnityEngine.UI.Image[] steins = new UnityEngine.UI.Image[1];
 
     //Use this for initialization
     void Start()
     {
         //DEBUG
         tiltAmounts = GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
+
+        steins = GetComponentsInChildren<UnityEngine.UI.Image>();
     }
 	
 	//Update is called once per frame
