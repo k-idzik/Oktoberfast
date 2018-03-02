@@ -78,7 +78,7 @@ public class MenuManager : MonoBehaviour {
                 break;
 
             case (int)Screen.GAME:
-                SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("Charles");
                 break;
         }
     }
