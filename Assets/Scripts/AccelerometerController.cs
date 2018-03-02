@@ -56,7 +56,7 @@ public class AccelerometerController : MonoBehaviour
             accelerometer.x = 0;
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -accelerometer.x);
-        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x;
+        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x);
 
         //DEBUG
         tiltAmounts[0].text = "X: " + accelerometer.x;
