@@ -52,11 +52,12 @@ public class AccelerometerController : MonoBehaviour
 
         transform.Translate(accelerometer.x, 0, -accelerometer.z); //Move the object that this script is attached to
 
-        if (Mathf.Abs(accelerometer.x) < .05f)
+        if (Mathf.Abs(accelerometer.x) < .03f)
             accelerometer.x = 0;
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -accelerometer.x);
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * accelerometer.x;
+
         //DEBUG
         tiltAmounts[0].text = "X: " + accelerometer.x;
         tiltAmounts[1].text = "Z: " + accelerometer.z;
