@@ -9,6 +9,7 @@ public class AccelerometerController : MonoBehaviour
     private UnityEngine.UI.Text[] tiltAmounts = new UnityEngine.UI.Text[2]; //UI text
     //private UnityEngine.UI.Image[] steins = new UnityEngine.UI.Image[1];
     private List<UnityEngine.UI.Image> steins;
+    private List<UnityEngine.UI.Image> beers;
 
     //Use this for initialization
     void Start()
@@ -16,13 +17,17 @@ public class AccelerometerController : MonoBehaviour
         //DEBUG
         tiltAmounts = GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
 
-        // populate steins array
+        // populate steins array and beers array
         steins = new List<UnityEngine.UI.Image>();
-        foreach (UnityEngine.UI.Image s in GetComponentsInChildren<UnityEngine.UI.Image>())
+        beers = new List<UnityEngine.UI.Image>();
+        foreach (UnityEngine.UI.Image i in GetComponentsInChildren<UnityEngine.UI.Image>())
         {
-            if (s.tag == "Stein")
-                steins.Add(s);
-        }
+            if (i.tag == "Stein")
+                steins.Add(i);
+
+            else if (i.tag == "Beer")
+                beers.Add(i);
+        }        
     }
 	
 	//Update is called once per frame
@@ -31,6 +36,7 @@ public class AccelerometerController : MonoBehaviour
 #if UNITY_EDITOR //Debug controls
         transform.Translate(Input.GetAxis("Horizontal") * .1f, 0, Input.GetAxis("Vertical") * .1f); //Move the object that this script is attached to
         steins[0].transform.Rotate(Vector3.forward, 1 * -Input.GetAxis("Horizontal"));
+        beers[0].transform.Rotate(Vector3.forward, 1 * Input.GetAxis("Horizontal"));
 #else
         Vector3 accelerometer = Input.acceleration * .1f; //Get the acceleration, dull it down a bit
 
