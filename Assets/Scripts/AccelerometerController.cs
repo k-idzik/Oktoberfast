@@ -24,10 +24,19 @@ public class AccelerometerController : MonoBehaviour
 
     float minRotation = -90;
     float maxRotation = 90;
-    bool forward = false;
-    bool backward = false;
 
-    Vector3 calibrationVec;
+    //Player Attributes
+	private float maxSpeed; //This is the original speed player moves at that we use to speed character up till after braking
+    [SerializeField] private float speed = 5.0f; //How fast player is currently moving
+	[SerializeField] private float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
+	[SerializeField] private float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
+	[SerializeField] private float turnSpeed = 1.0f;    //How fast player turns
+
+    //Screen/Device Variables
+    private bool screenTouched;
+    Vector3 accelerometer; //holds acceleration for device
+	//private Vector3 calibrationVec; //used for left right calibration
+
     //Use this for initialization
     void Start()
     {
@@ -52,36 +61,36 @@ public class AccelerometerController : MonoBehaviour
 
         //Keep the screen on
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        screenTouched = false; //Indicates whether screen is touched
 
-        calibrationVec = Input.acceleration;
+		//initialize Player movement
+		maxSpeed = speed;
+		
+
+       // calibrationVec = Input.acceleration;
     }
 
     //Update is called once per frame
     void Update()
     {
 #if UNITY_EDITOR //Debug controls
-        transform.Translate(Input.GetAxis("Horizontal") * .1f, 0, Input.GetAxis("Vertical") * .1f); //Move the object that this script is attached to
+        transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, 0); //Move the object that this script is attached to
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
 #endif
-        MoveForward();
-        Vector3 accelerometer = (Input.acceleration - calibrationVec)* .1f; //Get the acceleration, dull it down a bit
-        
+        //Get accelerometer vector
+        accelerometer = Input.acceleration;
+
         //Ignore really small movements
         if (Mathf.Abs(accelerometer.x) < .015f)
             accelerometer.x = 0;
-        if (Mathf.Abs(accelerometer.z) < .015f)
-            accelerometer.z = 0;
+		
+		//Move Player
+		Move();
 
-        //if(Input.acceleration.x < calibrationVec.x)
-        transform.Translate(accelerometer.x, 0, -accelerometer.z); //Move the object that this script is attached to
-
-        if (Mathf.Abs(accelerometer.x) < .04f)
-            accelerometer.x = 0;
-
-        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer.x);
-        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer.x);
+        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer.x * Time.deltaTime);
+        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer.x * Time.deltaTime);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -101,22 +110,47 @@ public class AccelerometerController : MonoBehaviour
         }
 
         //DEBUG
-        tiltAmounts[0].text = "X: " + accelerometer.x;
-        tiltAmounts[1].text = "Z: " + accelerometer.z;
+        tiltAmounts[0].text = "Touches: " + Input.touchCount;
+        tiltAmounts[1].text = "Speed: " + speed;
+
     }
 
-    public void MoveForward()
+    public void Move()
     {
-        if(forward)
-            transform.Translate(0, 0, 5 * Time.deltaTime);
-        if(backward)
-            transform.Translate(0, 0, -5 * Time.deltaTime);
+        if (Input.touchCount > 0)
+        {
+            //Get Touch Id
+            Touch screenTouch = Input.GetTouch(0); //gets the first touch
+
+            switch (screenTouch.phase)
+            {
+                case TouchPhase.Began:
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    screenTouched = true; //Screen has been touched;
+                    speed -= brakeForce;
+
+                    if (speed < minSpeed)
+                        speed = minSpeed;
+
+                    break;
+
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    screenTouched = false;
+                    break;
+            }
+        }
+        else
+        {
+            speed += brakeForce;
+
+            if (speed > maxSpeed)
+                speed = maxSpeed;
+        }
+        transform.Translate(accelerometer.x * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+
+		
     }
 
-    public void SetForward(bool status)
-    {
-        forward = status;
-    }
-
-    public void setBackward(bool status) { backward = status; }
 }

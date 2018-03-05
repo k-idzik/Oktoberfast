@@ -233,7 +233,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212985090802454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 4.5, z: 2.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224474791465535798}
@@ -863,6 +863,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steinRotateSpeed: 1
   beerSpilledRate: 0.045
+  speed: 4
+  brakeForce: 0.05
+  minSpeed: 1
+  turnSpeed: 2.5
 --- !u!124 &124838578771988588
 Behaviour:
   m_ObjectHideFlags: 1
@@ -1007,7 +1011,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1794469939084668}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.3}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224710462563239032}
@@ -1066,7 +1070,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1348134256187418}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.3}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224957999459015370}
