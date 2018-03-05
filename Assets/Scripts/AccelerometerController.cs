@@ -6,7 +6,7 @@ using UnityEngine;
 public class AccelerometerController : MonoBehaviour
 {
     //DEBUG
-    private UnityEngine.UI.Text[] tiltAmounts = new UnityEngine.UI.Text[2]; //UI text
+    private UnityEngine.UI.Text[] tiltAmounts; //UI text
 
     // lists for holding beer and steins
     private List<UnityEngine.UI.Image> steins;
@@ -40,12 +40,12 @@ public class AccelerometerController : MonoBehaviour
     void Start()
     {
         //DEBUG
-        tiltAmounts = GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
+        tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
 
         // populate steins array and beers array
         steins = new List<UnityEngine.UI.Image>();
         beers = new List<UnityEngine.UI.Image>();
-        foreach (UnityEngine.UI.Image i in GetComponentsInChildren<UnityEngine.UI.Image>())
+        foreach (UnityEngine.UI.Image i in GameObject.Find("GameUI").GetComponentsInChildren<UnityEngine.UI.Image>())
         {
             if (i.tag == "Stein")
                 steins.Add(i);
@@ -72,8 +72,8 @@ public class AccelerometerController : MonoBehaviour
 #if UNITY_EDITOR //Debug controls
         MovePC();
 
-        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
-        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
+        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
+        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -91,7 +91,7 @@ public class AccelerometerController : MonoBehaviour
         {
             beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
         }
-#else //Mobile
+#endif 
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
 
@@ -125,7 +125,7 @@ public class AccelerometerController : MonoBehaviour
         //DEBUG
         tiltAmounts[0].text = "Touches: " + Input.touchCount;
         tiltAmounts[1].text = "Speed: " + speed;
-#endif
+
     }
 
     //Movement on mobile

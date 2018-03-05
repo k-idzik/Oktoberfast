@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c3de5d455c0cec94cb8f0a8fef3c1f4b
-timeCreated: 1520225754
+guid: 2ecc7d2c69fae4c4298b0fa04793d2f2
+timeCreated: 1520225127
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -45,7 +45,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 66, z: 0, w: 64}
+  spriteBorder: {x: 0, y: 62, z: 0, w: 64}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -75,6 +75,15 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
   - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
