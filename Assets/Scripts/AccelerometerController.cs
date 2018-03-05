@@ -30,12 +30,11 @@ public class AccelerometerController : MonoBehaviour
     [SerializeField] private float speed = 5.0f; //How fast player is currently moving
 	[SerializeField] private float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
 	[SerializeField] private float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
-	[SerializeField] private float turnSpeed = 1.0f;    //How fast player turns
+	[SerializeField] private float turnSpeed = 2.0f;    //How fast player turns
 
     //Screen/Device Variables
     private bool screenTouched;
-    Vector3 accelerometer; //holds acceleration for device
-	//private Vector3 calibrationVec; //used for left right calibration
+    float accelerometer; //holds acceleration for device
 
     //Use this for initialization
     void Start()
@@ -65,32 +64,46 @@ public class AccelerometerController : MonoBehaviour
 
 		//initialize Player movement
 		maxSpeed = speed;
-		
-
-       // calibrationVec = Input.acceleration;
     }
 
     //Update is called once per frame
     void Update()
     {
 #if UNITY_EDITOR //Debug controls
-        transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, 0); //Move the object that this script is attached to
+        MovePC();
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal"));
         beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal"));
-#endif
+
+        // after stein rotates perform check to see if any beer has spilt
+        // first, retrieve upper right and upper left corners of stein and beer
+        // 1 = top left
+        // 2 = top right
+        steins[0].rectTransform.GetWorldCorners(steinCorners);
+        beers[0].rectTransform.GetWorldCorners(beerCorners);
+
+        // if either corner of the stein is greater than the corner of the beer the beer should spill
+        if (steinCorners[2].y < beerCorners[2].y)
+        {
+            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
+        }
+        else if (steinCorners[1].y < beerCorners[1].y)
+        {
+            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
+        }
+#else //Mobile
         //Get accelerometer vector
-        accelerometer = Input.acceleration;
+        accelerometer = Input.acceleration.x;
 
         //Ignore really small movements
-        if (Mathf.Abs(accelerometer.x) < .015f)
-            accelerometer.x = 0;
+        if (Mathf.Abs(accelerometer) < .015f)
+            accelerometer = 0;
 		
 		//Move Player
 		Move();
 
-        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer.x * Time.deltaTime);
-        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer.x * Time.deltaTime);
+        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer * Time.deltaTime);
+        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer * Time.deltaTime);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -112,9 +125,10 @@ public class AccelerometerController : MonoBehaviour
         //DEBUG
         tiltAmounts[0].text = "Touches: " + Input.touchCount;
         tiltAmounts[1].text = "Speed: " + speed;
-
+#endif
     }
 
+    //Movement on mobile
     public void Move()
     {
         if (Input.touchCount > 0)
@@ -148,9 +162,28 @@ public class AccelerometerController : MonoBehaviour
             if (speed > maxSpeed)
                 speed = maxSpeed;
         }
-        transform.Translate(accelerometer.x * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
 
-		
+        transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 
+    //Movement on PC
+    public void MovePC()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            speed -= brakeForce;
+
+            if (speed < minSpeed)
+                speed = minSpeed;
+        }
+        else
+        {
+            speed += brakeForce;
+
+            if (speed > maxSpeed)
+                speed = maxSpeed;
+        }
+        
+        transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+    }
 }
