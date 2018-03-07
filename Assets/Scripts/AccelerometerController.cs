@@ -12,11 +12,18 @@ public class AccelerometerController : MonoBehaviour
     private List<UnityEngine.UI.Image> steins;
     private List<UnityEngine.UI.Image> beers;
 
+    // the initial point to rotate the stein and beer back to
+    private Quaternion initSteinRotation;
+    private Quaternion initBeerRotation;
+
     // rate at which stein turns
     public float steinRotateSpeed = 1f;
 
     // rate at which beer spills
     public float beerSpilledRate = 0.5f;
+
+    // rate at which stein and beer rotate to normal
+    public float returnRotationRate = 8f;
 
     // values to hold upper corners of the steins and beers
     private Vector3[] steinCorners;
@@ -54,6 +61,10 @@ public class AccelerometerController : MonoBehaviour
                 beers.Add(i);
         }
 
+        // initialize stein and beer rotation
+        initSteinRotation = steins[0].transform.rotation;
+        initBeerRotation = beers[0].transform.rotation;
+
         // initialize corners arrays
         steinCorners = new Vector3[4];
         beerCorners = new Vector3[4];
@@ -79,18 +90,18 @@ public class AccelerometerController : MonoBehaviour
         // first, retrieve upper right and upper left corners of stein and beer
         // 1 = top left
         // 2 = top right
-        steins[0].rectTransform.GetWorldCorners(steinCorners);
-        beers[0].rectTransform.GetWorldCorners(beerCorners);
-
-        // if either corner of the stein is greater than the corner of the beer the beer should spill
-        if (steinCorners[2].y < beerCorners[2].y)
-        {
-            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
-        }
-        else if (steinCorners[1].y < beerCorners[1].y)
-        {
-            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
-        }
+        //steins[0].rectTransform.GetWorldCorners(steinCorners);
+        //beers[0].rectTransform.GetWorldCorners(beerCorners);
+        //
+        //// if either corner of the stein is greater than the corner of the beer the beer should spill
+        //if (steinCorners[2].y < beerCorners[2].y)
+        //{
+        //    beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
+        //}
+        //else if (steinCorners[1].y < beerCorners[1].y)
+        //{
+        //    beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
+        //}
 #endif 
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
@@ -183,7 +194,14 @@ public class AccelerometerController : MonoBehaviour
             if (speed > maxSpeed)
                 speed = maxSpeed;
         }
-        
-        transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+
+        // stein should rotate back to center
+        if (Input.GetAxis("Horizontal") == 0f)
+        {
+            steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
+            beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
+        }
+        else
+            transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 }
