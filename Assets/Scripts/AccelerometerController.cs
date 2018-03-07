@@ -174,7 +174,14 @@ public class AccelerometerController : MonoBehaviour
                 speed = maxSpeed;
         }
 
-        transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+        // stein should rotate back to center
+        if (accelerometer == 0f)
+        {
+            steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
+            beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
+        }
+        else
+            transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 
     //Movement on PC
