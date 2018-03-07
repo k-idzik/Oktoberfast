@@ -15,6 +15,7 @@ public class AccelerometerController : MonoBehaviour
     // the initial point to rotate the stein and beer back to
     private Quaternion initSteinRotation;
     private Quaternion initBeerRotation;
+    private Vector3 initBeerPos;
 
     // rate at which stein turns
     public float steinRotateSpeed = 1f;
@@ -64,6 +65,7 @@ public class AccelerometerController : MonoBehaviour
         // initialize stein and beer rotation
         initSteinRotation = steins[0].transform.rotation;
         initBeerRotation = beers[0].transform.rotation;
+        initBeerPos = beers[0].transform.position;
 
         // initialize corners arrays
         steinCorners = new Vector3[4];
@@ -84,7 +86,6 @@ public class AccelerometerController : MonoBehaviour
         MovePC();
 
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
-        beers[0].transform.Rotate(Vector3.forward, steinRotateSpeed * Input.GetAxis("Horizontal") * Time.deltaTime);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -103,6 +104,10 @@ public class AccelerometerController : MonoBehaviour
         //    beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
         //}
 #endif 
+        // simple way to prevent beer from roatating
+        beers[0].transform.rotation = initBeerRotation;
+        beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
+
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
 
@@ -114,7 +119,6 @@ public class AccelerometerController : MonoBehaviour
 		Move();
 
         steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer * Time.deltaTime);
-        beers[0].transform.Rotate(Vector3.forward, 12 * accelerometer * Time.deltaTime);
 
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -122,15 +126,19 @@ public class AccelerometerController : MonoBehaviour
         // 2 = top right
         steins[0].rectTransform.GetWorldCorners(steinCorners);
         beers[0].rectTransform.GetWorldCorners(beerCorners);
+        Debug.Log("Stein Left:" + steinCorners[1].y);
+        Debug.Log("Stein Right:" + steinCorners[2].y);
 
         // if either corner of the stein is greater than the corner of the beer the beer should spill
         if (steinCorners[2].y < beerCorners[2].y)
         {
-            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
+            beers[0].transform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.World);
+            //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
         }
         else if (steinCorners[1].y < beerCorners[1].y)
         {
-            beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
+            beers[0].transform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.World);
+            //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
         }
 
         //DEBUG
@@ -175,12 +183,14 @@ public class AccelerometerController : MonoBehaviour
         }
 
         // stein should rotate back to center
+#if UNITY_ANDROID
         if (accelerometer == 0f)
         {
             steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
             beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
         }
         else
+#endif
             transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 
@@ -204,11 +214,11 @@ public class AccelerometerController : MonoBehaviour
 
         // stein should rotate back to center
         if (Input.GetAxis("Horizontal") == 0f)
-        {
             steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
-            beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
-        }
         else
+        {
             transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+        }
+
     }
 }

@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd2049c408dc6348b2531207ebfb140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steinRotateSpeed: 5
-  beerSpilledRate: 0.045
+  steinRotateSpeed: 25
+  beerSpilledRate: 5
   returnRotationRate: 10
   speed: 4
   brakeForce: 0.05
