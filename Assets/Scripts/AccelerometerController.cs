@@ -106,7 +106,7 @@ public class AccelerometerController : MonoBehaviour
 #endif 
         // simple way to prevent beer from roatating
         beers[0].transform.rotation = initBeerRotation;
-        beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
+        //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
 
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
@@ -132,13 +132,13 @@ public class AccelerometerController : MonoBehaviour
         // if either corner of the stein is greater than the corner of the beer the beer should spill
         if (steinCorners[2].y < beerCorners[2].y)
         {
-            beers[0].transform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.World);
-            //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
+            beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
         else if (steinCorners[1].y < beerCorners[1].y)
         {
-            beers[0].transform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.World);
-            //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
+            beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
 
         //DEBUG

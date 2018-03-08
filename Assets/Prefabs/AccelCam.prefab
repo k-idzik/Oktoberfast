@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steinRotateSpeed: 25
-  beerSpilledRate: 5
+  beerSpilledRate: 2.5
   returnRotationRate: 10
   speed: 4
   brakeForce: 0.05
