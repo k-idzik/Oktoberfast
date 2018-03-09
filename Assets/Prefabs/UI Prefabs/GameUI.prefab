@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 222541501393874756}
   - component: {fileID: 114895555429360582}
   m_Layer: 5
-  m_Name: Tip Score
+  m_Name: timeCompleted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,7 +3247,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1227030676191236}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
