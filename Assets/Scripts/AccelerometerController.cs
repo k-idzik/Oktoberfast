@@ -22,6 +22,7 @@ public class AccelerometerController : MonoBehaviour
 
     // rate at which beer spills
     public float beerSpilledRate = 0.5f;
+    private float beerSpilledTotal;
 
     // rate at which stein and beer rotate to normal
     public float returnRotationRate = 8f;
@@ -38,11 +39,14 @@ public class AccelerometerController : MonoBehaviour
     [SerializeField] private float speed = 5.0f; //How fast player is currently moving
 	[SerializeField] private float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
 	[SerializeField] private float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
-	[SerializeField] private float turnSpeed = 2.0f;    //How fast player turns
+	[SerializeField] private float turnSpeed = 15.0f;    //How fast player turns
 
     //Screen/Device Variables
     private bool screenTouched;
-    float accelerometer; //holds acceleration for device
+    private float accelerometer; //holds acceleration for device
+    private float beerSpillAccelerometer; //Separate beer spill acceleration
+    private float accelerometerLimit = .25f; //holds max acceleration for device
+    private float beerSpillAccelerometerLimit = .45f; //Separate max beer spill acceleration
 
     //Use this for initialization
     void Start()
@@ -100,16 +104,21 @@ public class AccelerometerController : MonoBehaviour
 
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
+        beerSpillAccelerometer = accelerometer;
 
         //Ignore really small movements
-        if (Mathf.Abs(accelerometer) < .015f)
+        if (Mathf.Abs(accelerometer) < accelerometerLimit)
             accelerometer = 0;
-		
-		//Move Player
-		Move();
+
+        //Separate for beer, more tolerance
+        if (Mathf.Abs(beerSpillAccelerometer) < beerSpillAccelerometerLimit)
+            beerSpillAccelerometer = 0;
+
+        //Move Player
+        Move();
 
         //Let steins rotate
-        steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer * Time.deltaTime);
+        steins[0].transform.Rotate(Vector3.forward, 12 * -beerSpillAccelerometer * Time.deltaTime);
 #endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -123,15 +132,20 @@ public class AccelerometerController : MonoBehaviour
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+
+            //beerSpilledTotal += beerSpilledRate;
         }
         else if (steinCorners[1].y < beerCorners[1].y)
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-        }
 
+            //beerSpilledTotal += beerSpilledRate;
+        }
+        //Debug.Log(beerSpilledTotal);
         //Display framerate for debug
         tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
+        tiltAmounts[1].text = Input.acceleration.x.ToString();
     }
 
     //Movement on mobile
