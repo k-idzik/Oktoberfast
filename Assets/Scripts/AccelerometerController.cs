@@ -121,8 +121,8 @@ public class AccelerometerController : MonoBehaviour
         // 2 = top right
         steins[0].rectTransform.GetWorldCorners(steinCorners);
         beers[0].rectTransform.GetWorldCorners(beerCorners);
-        Debug.Log("Stein Left:" + steinCorners[1].y);
-        Debug.Log("Stein Right:" + steinCorners[2].y);
+        //Debug.Log("Stein Left:" + steinCorners[1].y);
+        //Debug.Log("Stein Right:" + steinCorners[2].y);
 
         // if either corner of the stein is greater than the corner of the beer the beer should spill
         if (steinCorners[2].y < beerCorners[2].y)
