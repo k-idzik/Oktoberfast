@@ -85,25 +85,15 @@ public class AccelerometerController : MonoBehaviour
 #if UNITY_EDITOR //Debug controls
         MovePC();
 
+        // simple way to prevent beer from roatating
+        beers[0].transform.rotation = initBeerRotation;
+
+        //Let steins rotate
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
 
-        // after stein rotates perform check to see if any beer has spilt
-        // first, retrieve upper right and upper left corners of stein and beer
-        // 1 = top left
-        // 2 = top right
-        //steins[0].rectTransform.GetWorldCorners(steinCorners);
-        //beers[0].rectTransform.GetWorldCorners(beerCorners);
-        //
-        //// if either corner of the stein is greater than the corner of the beer the beer should spill
-        //if (steinCorners[2].y < beerCorners[2].y)
-        //{
-        //    beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[2].y - steinCorners[2].y), 0));
-        //}
-        //else if (steinCorners[1].y < beerCorners[1].y)
-        //{
-        //    beers[0].transform.Translate(new Vector3(0, -beerSpilledRate * (beerCorners[1].y - steinCorners[1].y), 0));
-        //}
-#endif 
+//DON'T REMOVE THIS
+//OR YE SHALL FACE THE WRATH OF BRÜCE ON JUICE
+#else
         // simple way to prevent beer from roatating
         beers[0].transform.rotation = initBeerRotation;
         //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
@@ -118,16 +108,21 @@ public class AccelerometerController : MonoBehaviour
 		//Move Player
 		Move();
 
+        //Let steins rotate
         steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer * Time.deltaTime);
 
+        //DEBUG
+        tiltAmounts[0].text = "Touches: " + Input.touchCount;
+        tiltAmounts[1].text = "Speed: " + speed;
+#endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
         // 1 = top left
         // 2 = top right
         steins[0].rectTransform.GetWorldCorners(steinCorners);
         beers[0].rectTransform.GetWorldCorners(beerCorners);
-        Debug.Log("Stein Left:" + steinCorners[1].y);
-        Debug.Log("Stein Right:" + steinCorners[2].y);
+        //Debug.Log("Stein Left:" + steinCorners[1].y);
+        //Debug.Log("Stein Right:" + steinCorners[2].y);
 
         // if either corner of the stein is greater than the corner of the beer the beer should spill
         if (steinCorners[2].y < beerCorners[2].y)
@@ -140,11 +135,6 @@ public class AccelerometerController : MonoBehaviour
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
-
-        //DEBUG
-        tiltAmounts[0].text = "Touches: " + Input.touchCount;
-        tiltAmounts[1].text = "Speed: " + speed;
-
     }
 
     //Movement on mobile
@@ -183,15 +173,14 @@ public class AccelerometerController : MonoBehaviour
         }
 
         // stein should rotate back to center
-#if UNITY_ANDROID
         if (accelerometer == 0f)
         {
             steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
             beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
         }
-        else
-#endif
-            transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+
+        //Move forward
+        transform.Translate(accelerometer * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 
     //Movement on PC
@@ -215,10 +204,9 @@ public class AccelerometerController : MonoBehaviour
         // stein should rotate back to center
         if (Input.GetAxis("Horizontal") == 0f)
             steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
-        else
-        {
-            transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
-        }
+
+        //Move forward
+        transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
 
     }
 }
