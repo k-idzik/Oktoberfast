@@ -10,9 +10,17 @@ public class MenuManager : MonoBehaviour {
     //Menu Groups
     private CanvasGroup StartMenu;
     private CanvasGroup CreditsMenu;
-    [SerializeField] private CanvasGroup PauseMenu;
+    private CanvasGroup PauseMenu;
     private CanvasGroup GameUI;
     private CanvasGroup DebugUI;
+    private CanvasGroup EndLevelMenu;
+
+    //End Level Screen UI Elements
+    private Text patronServed;
+    private Text tipsEarned;
+    private Text timeCompleted;
+    //private Button tryAgainBtn;
+    private Button continueBtn;
 
     //Menu Manager variables
     [SerializeField] private Screen currentScreen;
@@ -92,6 +100,25 @@ public class MenuManager : MonoBehaviour {
         Time.timeScale = 1;
     }
 
+    /// <summary>
+    /// Shows the end level screen for the current level. Must be given the proper values to display to player in the menu
+    /// </summary>
+    /// <param name="patronAmount">Amount of patrons player served</param>
+    /// <param name="tipAmount">Amount of tips earned by player</param>
+    /// <param name="time">Amount of time it took player to reach end of level</param>
+    /// <param name="nextLvl">int value for build order of the scene that contains the next level</param>
+    public void ShowEndLevelScreen(int patronAmount, double tipAmount, double time, int nextLvl)
+    {
+
+        patronServed.text = patronAmount + " Patrons Served";
+        tipsEarned.text = "$ " + tipAmount + " Earned";
+        timeCompleted.text = time.ToString();
+
+        continueBtn.onClick.AddListener(delegate { GoToScene(nextLvl); });
+
+        TurnOn(EndLevelMenu);
+    }
+
     public void ToggleDebug()
     {
         if(DebugOn)
@@ -167,6 +194,14 @@ public class MenuManager : MonoBehaviour {
 
                 DebugUI = GameObject.Find("DebugGroup").GetComponent<CanvasGroup>();
                 GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
+                EndLevelMenu = GameObject.Find("EndLevelScreen").GetComponent<CanvasGroup>();
+
+                //Find End Level UI elements
+                patronServed = GameObject.Find("Patron Score").GetComponent<Text>();
+                tipsEarned = GameObject.Find("Tip Score").GetComponent<Text>();
+                timeCompleted = GameObject.Find("timeCompleted").GetComponent<Text>();
+                GameObject.Find("TryAgainBtn").GetComponent<Button>().onClick.AddListener(delegate { Time.timeScale = 1; GoToScene(0); });
+                continueBtn = GameObject.Find("ContinueBtn").GetComponent<Button>();
                 break;
 
         }
