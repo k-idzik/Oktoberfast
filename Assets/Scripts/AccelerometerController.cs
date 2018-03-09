@@ -110,10 +110,6 @@ public class AccelerometerController : MonoBehaviour
 
         //Let steins rotate
         steins[0].transform.Rotate(Vector3.forward, 12 * -accelerometer * Time.deltaTime);
-
-        //DEBUG
-        tiltAmounts[0].text = "Touches: " + Input.touchCount;
-        tiltAmounts[1].text = "Speed: " + speed;
 #endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
@@ -121,8 +117,6 @@ public class AccelerometerController : MonoBehaviour
         // 2 = top right
         steins[0].rectTransform.GetWorldCorners(steinCorners);
         beers[0].rectTransform.GetWorldCorners(beerCorners);
-        //Debug.Log("Stein Left:" + steinCorners[1].y);
-        //Debug.Log("Stein Right:" + steinCorners[2].y);
 
         // if either corner of the stein is greater than the corner of the beer the beer should spill
         if (steinCorners[2].y < beerCorners[2].y)
@@ -135,6 +129,9 @@ public class AccelerometerController : MonoBehaviour
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
+
+        //Display framerate for debug
+        tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
     }
 
     //Movement on mobile
@@ -207,6 +204,30 @@ public class AccelerometerController : MonoBehaviour
 
         //Move forward
         transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
+    }
 
+    //Vibrate when the player is in range of the patron
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "Patron")
+        {
+            Handheld.Vibrate();
+        }
+    }
+
+    //When the player taps, serve the patron
+    private void OnTriggerStay(Collider coll)
+    {
+#if UNITY_EDITOR //Debug controls
+        if (Input.GetKey(KeyCode.B))
+        {
+            Debug.Log("Beer delivered");
+        }
+#else
+        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+
+        }
+#endif
     }
 }
