@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
 
     //Menu Groups
     private CanvasGroup StartMenu;
+    private CanvasGroup ControlsMenu;
     private CanvasGroup CreditsMenu;
     private CanvasGroup PauseMenu;
     private CanvasGroup GameUI;
@@ -38,14 +39,17 @@ public class MenuManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Use this for initialization
-    void Start () {
+    //Use this for initialization
+    void Start()
+    {
         StartMenu = GameObject.Find("StartMenu").GetComponent<CanvasGroup>();
+        ControlsMenu = GameObject.Find("ControlsMenu").GetComponent<CanvasGroup>();
         CreditsMenu = GameObject.Find("CreditsMenu").GetComponent<CanvasGroup>();
     }
 	
-	// Update is called once per frame
-	void Update () {
+	//Update is called once per frame
+	void Update()
+    {
 		
 	}
 
@@ -56,6 +60,7 @@ public class MenuManager : MonoBehaviour
 
         //Turn off All Other Groups
         TurnOff(StartMenu);
+        TurnOff(ControlsMenu);
     }
 
     public void ShowStart()
@@ -64,12 +69,14 @@ public class MenuManager : MonoBehaviour
         TurnOn(StartMenu);
 
         //Turn off All other Groups
+        TurnOff(ControlsMenu);
         TurnOff(CreditsMenu);
     }
 
     public void ShowControls()
     {
         //Turn on ControlMenu
+        TurnOn(ControlsMenu);
 
         //Turn off All other Groups
         TurnOff(CreditsMenu);
