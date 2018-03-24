@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65328609626618854}
   m_Layer: 0
   m_Name: chair.003 (2)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 65312902778886494}
   m_Layer: 0
   m_Name: chair_canvas
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 65249242781747626}
   m_Layer: 0
   m_Name: table.004
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 65853789355624088}
   m_Layer: 0
   m_Name: bench.003 (1)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 64027417327725446}
   m_Layer: 0
   m_Name: chair.002 (1)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 65431700235219334}
   m_Layer: 0
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 65192287022876230}
   m_Layer: 0
   m_Name: chair (1)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 65883404486290826}
   m_Layer: 0
   m_Name: chair.003 (1)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 65574289014065322}
   m_Layer: 0
   m_Name: table.004 (1)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 65194053920183770}
   m_Layer: 0
   m_Name: table
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 65858638685648938}
   m_Layer: 0
   m_Name: chair.003 (3)
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1380,7 +1380,7 @@ GameObject:
   - component: {fileID: 65154844628588806}
   m_Layer: 0
   m_Name: table.005
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 65620800016476386}
   m_Layer: 0
   m_Name: chair.003
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1779,7 +1779,7 @@ GameObject:
   - component: {fileID: 64754929027291554}
   m_Layer: 0
   m_Name: chair.002
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1797,7 +1797,7 @@ GameObject:
   - component: {fileID: 65094640085108344}
   m_Layer: 0
   m_Name: bench.003
-  m_TagString: Untagged
+  m_TagString: Table
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

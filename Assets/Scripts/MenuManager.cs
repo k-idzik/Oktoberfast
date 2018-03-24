@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour {
+public class MenuManager : MonoBehaviour
+{
     public enum Screen { MAIN_MENU = 0, GAME = 1, PAUSE = 2 };
 
     //Menu Groups
@@ -25,7 +26,6 @@ public class MenuManager : MonoBehaviour {
     //Menu Manager variables
     [SerializeField] private Screen currentScreen;
     private bool DebugOn = false;
-
 
     private void Awake()
     {
@@ -109,7 +109,6 @@ public class MenuManager : MonoBehaviour {
     /// <param name="nextLvl">int value for build order of the scene that contains the next level</param>
     public void ShowEndLevelScreen(int patronAmount, double tipAmount, double time, int nextLvl)
     {
-
         patronServed.text = patronAmount + " Patrons Served";
         tipsEarned.text = "$ " + tipAmount + " Earned";
         timeCompleted.text = time.ToString();
@@ -130,7 +129,6 @@ public class MenuManager : MonoBehaviour {
             TurnOn(DebugUI);
         }
         DebugOn = !DebugOn; 
-
     }
 
     public void Exit()
@@ -163,7 +161,6 @@ public class MenuManager : MonoBehaviour {
             case (int)Screen.GAME:
                 SceneManager.LoadScene("Game");
                 break;
-
         }
     }
 
@@ -175,7 +172,6 @@ public class MenuManager : MonoBehaviour {
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
         switch (scene.name)
         {
             case "MainMenu":
@@ -192,7 +188,6 @@ public class MenuManager : MonoBehaviour {
                 GameObject.Find("DebugBtn").GetComponent<Button>().onClick.AddListener(ToggleDebug);
                 GameObject.Find("Exit").GetComponent<Button>().onClick.AddListener(Exit);
 
-                DebugUI = GameObject.Find("DebugGroup").GetComponent<CanvasGroup>();
                 GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
                 EndLevelMenu = GameObject.Find("EndLevelScreen").GetComponent<CanvasGroup>();
 
@@ -203,7 +198,6 @@ public class MenuManager : MonoBehaviour {
                 GameObject.Find("TryAgainBtn").GetComponent<Button>().onClick.AddListener(delegate { Time.timeScale = 1; GoToScene(0); });
                 continueBtn = GameObject.Find("ContinueBtn").GetComponent<Button>();
                 break;
-
         }
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);

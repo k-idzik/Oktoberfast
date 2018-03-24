@@ -6,7 +6,7 @@ using UnityEngine;
 public class AccelerometerController : MonoBehaviour
 {
     //DEBUG
-    private UnityEngine.UI.Text[] tiltAmounts; //UI text
+    //private UnityEngine.UI.Text[] tiltAmounts; //UI text
 
     // lists for holding beer and steins
     private List<UnityEngine.UI.Image> steins;
@@ -22,7 +22,6 @@ public class AccelerometerController : MonoBehaviour
 
     // rate at which beer spills
     public float beerSpilledRate = 0.5f;
-    private float beerSpilledTotal;
 
     // rate at which stein and beer rotate to normal
     public float returnRotationRate = 8f;
@@ -31,8 +30,8 @@ public class AccelerometerController : MonoBehaviour
     private Vector3[] steinCorners;
     private Vector3[] beerCorners;
 
-    float minRotation = -90;
-    float maxRotation = 90;
+    //float minRotation = -90;
+    //float maxRotation = 90;
 
     //Player Attributes
 	private float maxSpeed; //This is the original speed player moves at that we use to speed character up till after braking
@@ -48,11 +47,44 @@ public class AccelerometerController : MonoBehaviour
     private float accelerometerLimit = .25f; //holds max acceleration for device
     private float beerSpillAccelerometerLimit = .45f; //Separate max beer spill acceleration
 
+    //Beer delivery
+    private UnityEngine.UI.Text[] deliverBeerText;
+    private UnityEngine.UI.Text patronsServedUI;
+    private float shakeAmount = 3; //UI effect
+    private int beersServed = 0; //Number of patrons served
+    private bool isBeerServed = false; //If the current beer has been served
+    private double beerTipAmount = 0; //Total tip amount
+    private double maxBeerTilt = 180; //Max beer spilled, factors into tipping
+
+    //Properties
+    public int BeersServed
+    {
+        get
+        {
+            return beersServed;
+        }
+    }
+    public double BeerTipAmount
+    {
+        get
+        {
+            //Round that before you give it back
+            //Ain't nobody got 1/5000th of a cent
+            return System.Math.Round(beerTipAmount, 2);
+        }
+        set
+        {
+            beerTipAmount = value;
+        }
+    }
+
     //Use this for initialization
     void Start()
     {
         //DEBUG
-        tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
+        //tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
+
+        deliverBeerText = GameObject.Find("FlyBys").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text for beer delivery
 
         // populate steins array and beers array
         steins = new List<UnityEngine.UI.Image>();
@@ -81,6 +113,9 @@ public class AccelerometerController : MonoBehaviour
 
 		//initialize Player movement
 		maxSpeed = speed;
+
+        //Get the patron UI text
+        patronsServedUI = GameObject.FindGameObjectWithTag("NumServed").GetComponent<UnityEngine.UI.Text>();
     }
 
     //Update is called once per frame
@@ -132,20 +167,23 @@ public class AccelerometerController : MonoBehaviour
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-
-            //beerSpilledTotal += beerSpilledRate;
         }
         else if (steinCorners[1].y < beerCorners[1].y)
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-
-            //beerSpilledTotal += beerSpilledRate;
         }
-        //Debug.Log(beerSpilledTotal);
+
+        //Precalculate tilt factor
+        double tiltFactor = Mathf.Abs(steins[0].transform.rotation.eulerAngles.z - 180);
+
+        //Keep a tally of the amount of beer spilled
+        if (tiltFactor < maxBeerTilt)
+            maxBeerTilt = tiltFactor;
+
         //Display framerate for debug
-        tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
-        tiltAmounts[1].text = Input.acceleration.x.ToString();
+        //tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
+        //tiltAmounts[1].text = Input.acceleration.x.ToString();
     }
 
     //Movement on mobile
@@ -220,28 +258,99 @@ public class AccelerometerController : MonoBehaviour
         transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
 
-    //Vibrate when the player is in range of the patron
-    private void OnTriggerEnter(Collider coll)
+    //Colliding with table
+    private void OnCollisionEnter(Collision coll)
     {
-        if (coll.tag == "Patron")
+        if (coll.gameObject.tag == "Table")
         {
             Handheld.Vibrate();
         }
     }
 
-    //When the player taps, serve the patron
+    //Entering trigger with patron
+    private void OnTriggerEnter(Collider coll)
+    {
+        //Make sure this is the patron
+        if (coll.tag == "Patron")
+        {
+            //Enable the beer text
+            deliverBeerText[0].enabled = true;
+            deliverBeerText[1].enabled = true;
+        }
+    }
+
     private void OnTriggerStay(Collider coll)
     {
-#if UNITY_EDITOR //Debug controls
-        if (Input.GetKey(KeyCode.B))
+        //When the player taps, serve the patron
+        if (coll.tag == "Patron")
         {
-            Debug.Log("Beer delivered");
-        }
-#else
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
-        {
+            if (deliverBeerText[0].fontSize < 300)
+            {
+                deliverBeerText[0].fontSize += 30;
+                deliverBeerText[1].fontSize += 30;
+            }
 
-        }
+            //Precalculate shake value
+            float shakeTextZ = Mathf.Sin(Time.time) * shakeAmount;
+
+            //Shake beer delivery text to make it stand out
+            deliverBeerText[0].transform.Rotate(0, 0, shakeTextZ);
+            deliverBeerText[1].transform.Rotate(0, 0, -shakeTextZ);
+
+            shakeAmount *= -1; //Flip to make the beer shake the other way the next frame
+
+#if UNITY_EDITOR //Debug controls
+            if (Input.GetKey(KeyCode.B) && !isBeerServed)
+            {
+                //Deliver beer
+                beersServed++;
+                patronsServedUI.text = "Patrons Served: " + beersServed;
+                isBeerServed = true;
+
+                //Don't tip bad service
+                if (maxBeerTilt < 100)
+                    maxBeerTilt = 0;
+
+                beerTipAmount += (maxBeerTilt * 2) / 100; //Calculate the tip
+
+                //Disable the beer text
+                deliverBeerText[0].enabled = false;
+                deliverBeerText[1].enabled = false;
+            }
+#else
+            if (Input.GetTouch(0).phase == TouchPhase.Began && !isBeerServed)
+            {
+                //Deliver beer
+                beersServed++;
+                patronsServedUI.text = "Patrons Served: " + beersServed;
+                isBeerServed = true;
+
+                //Don't tip bad service
+                if (maxBeerTilt < 100)
+                    maxBeerTilt = 0;
+
+                beerTipAmount += (maxBeerTilt * 2) / 100; //Calculate the tip
+
+                //Disable the beer text
+                deliverBeerText[0].enabled = false;
+                deliverBeerText[1].enabled = false;
+            }
 #endif
+        }
+    }
+
+    //Exit trigger with patron
+    private void OnTriggerExit(Collider coll)
+    {
+        //Disable the beer text
+        deliverBeerText[0].enabled = false;
+        deliverBeerText[1].enabled = false;
+
+        //Reset beer serving
+        isBeerServed = false;
+        beers[0].transform.rotation = Quaternion.Euler(0, 0, 0);
+        steins[0].transform.rotation = Quaternion.Euler(0, 0, 0);
+        beers[0].transform.position = new Vector3(113.8f, 108.2f, 0); //Yes, these numbers are magic. Yes, I did conjure them.
+        maxBeerTilt = 180;
     }
 }

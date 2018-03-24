@@ -7,6 +7,8 @@ TagManager:
   - Stein
   - Beer
   - Patron
+  - Table
+  - NumServed
   layers:
   - Default
   - TransparentFX
