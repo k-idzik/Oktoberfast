@@ -55,6 +55,10 @@ public class AccelerometerController : MonoBehaviour
     private bool isBeerServed = false; //If the current beer has been served
     private double beerTipAmount = 0; //Total tip amount
     private double maxBeerTilt = 180; //Max beer spilled, factors into tipping
+    private Vector3 initialBeerPosition; //The initial position of the beer, used in beer refilling
+
+    private bool tableCollision = false; //If the player is colliding with a table
+    private bool canCollide = true; //If the player can collide with a table (prevents multiple collisions/spills on the same object)
 
     //Properties
     public int BeersServed
@@ -113,6 +117,8 @@ public class AccelerometerController : MonoBehaviour
 
 		//initialize Player movement
 		maxSpeed = speed;
+
+        initialBeerPosition = beers[0].transform.position; //Save the initial beer position
 
         //Get the patron UI text
         patronsServedUI = GameObject.FindGameObjectWithTag("NumServed").GetComponent<UnityEngine.UI.Text>();
@@ -174,12 +180,7 @@ public class AccelerometerController : MonoBehaviour
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
 
-        //Precalculate tilt factor
-        double tiltFactor = Mathf.Abs(steins[0].transform.rotation.eulerAngles.z - 180);
-
-        //Keep a tally of the amount of beer spilled
-        if (tiltFactor < maxBeerTilt)
-            maxBeerTilt = tiltFactor;
+        CalculateTiltFactor(); //Calculate the tilt factor
 
         //Display framerate for debug
         //tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
@@ -213,7 +214,7 @@ public class AccelerometerController : MonoBehaviour
                     break;
             }
         }
-        else
+        else if (!tableCollision)
         {
             speed += brakeForce;
 
@@ -242,7 +243,7 @@ public class AccelerometerController : MonoBehaviour
             if (speed < minSpeed)
                 speed = minSpeed;
         }
-        else
+        else if (!tableCollision)
         {
             speed += brakeForce;
 
@@ -257,13 +258,59 @@ public class AccelerometerController : MonoBehaviour
         //Move forward
         transform.Translate(Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0, speed * Time.deltaTime);
     }
+    
+    //Checks beer tilt for tip calculation
+    private void CalculateTiltFactor()
+    {
+        //Precalculate tilt factor
+        double tiltFactor = Mathf.Abs(steins[0].transform.rotation.eulerAngles.z - 180);
+
+        //Keep a tally of the amount of beer spilled
+        if (tiltFactor < maxBeerTilt)
+            maxBeerTilt = tiltFactor;
+
+        Debug.Log(maxBeerTilt);
+    }
+
+    //Refill beer after it has been served
+    private void RefillBeer()
+    {
+        //Reset beer serving
+        isBeerServed = false;
+        beers[0].transform.rotation = Quaternion.Euler(0, 0, 0);
+        steins[0].transform.rotation = Quaternion.Euler(0, 0, 0);
+        beers[0].transform.position = initialBeerPosition; //Can't be magic numbers, depends on screen resolution
+        maxBeerTilt = 180;
+    }
 
     //Colliding with table
     private void OnCollisionEnter(Collision coll)
     {
+        if (coll.gameObject.tag == "Table" && canCollide)
+        {
+            Handheld.Vibrate(); //Vibrate to indicate collision with table
+
+            //Stop movement
+            tableCollision = true;
+            canCollide = false;
+            speed = 0;
+
+            //Spill beer
+            beers[0].rectTransform.Translate(new Vector3(0, -25, 0), Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+
+            maxBeerTilt -= 25; //Automatically lose points when you hit a table (should be 50 cents)
+        }
+    }
+
+    //Leaving collision with table
+    private void OnCollisionExit(Collision coll)
+    {
         if (coll.gameObject.tag == "Table")
         {
-            Handheld.Vibrate();
+            tableCollision = false; //Resume movement
+
+            StartCoroutine(WaitForNextTableCollision()); //Make sure no immediate collisions occur again
         }
     }
 
@@ -346,11 +393,14 @@ public class AccelerometerController : MonoBehaviour
         deliverBeerText[0].enabled = false;
         deliverBeerText[1].enabled = false;
 
-        //Reset beer serving
-        isBeerServed = false;
-        beers[0].transform.rotation = Quaternion.Euler(0, 0, 0);
-        steins[0].transform.rotation = Quaternion.Euler(0, 0, 0);
-        beers[0].transform.position = new Vector3(113.8f, 108.2f, 0); //Yes, these numbers are magic. Yes, I did conjure them.
-        maxBeerTilt = 180;
+        RefillBeer(); //Refill the stein
+    }
+
+    //Coroutine, wait until you can collide again
+    private IEnumerator WaitForNextTableCollision()
+    {
+        yield return new WaitForSeconds(.75f);
+
+        canCollide = true;
     }
 }
