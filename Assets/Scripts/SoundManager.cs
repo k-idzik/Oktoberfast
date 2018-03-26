@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
     //FIELDS
 	private AudioSource sfxSource; //what'll play effects
@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource musicSource; //source for looping background music
     private Dictionary<string, AudioClip> musicLibrary = new Dictionary<string, AudioClip>(); //music library
+
+    protected SoundManager() { }
 
 	void Awake()
 	{
