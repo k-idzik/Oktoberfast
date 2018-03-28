@@ -359,7 +359,6 @@ public class Player : MonoBehaviour
                 MenuManager.Instance.SwitchPatronTarget(patronServed.NextPatron);
             }
         }
-
     }
 
     //Exit trigger with patron
