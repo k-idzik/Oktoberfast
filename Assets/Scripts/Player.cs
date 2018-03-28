@@ -136,8 +136,8 @@ public class Player : MonoBehaviour
         //Let steins rotate
         //steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
 
-//DON'T REMOVE THIS
-//OR YE SHALL FACE THE WRATH OF BRÜCE ON JUICE
+        //DON'T REMOVE THIS
+        //OR YE SHALL FACE THE WRATH OF BRÜCE ON JUICE
 #else
         // simple way to prevent beer from roatating
         //beers[0].transform.rotation = initBeerRotation;
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
         Move();
 
         //Let steins rotate
-        //steins[0].transform.Rotate(Vector3.forward, 12 * -beerSpillAccelerometer * Time.deltaTime);
+        //steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -beerSpillAccelerometer * Time.deltaTime);
 #endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
