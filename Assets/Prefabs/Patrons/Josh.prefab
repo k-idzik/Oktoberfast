@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4888280811040984}
   - component: {fileID: 212079915334246112}
-  - component: {fileID: 65099531225190176}
   - component: {fileID: 114440106911857122}
+  - component: {fileID: 135783317293877608}
   m_Layer: 0
   m_Name: Josh
   m_TagString: Patron
@@ -42,18 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65099531225190176
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1370834504655270}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 41.012215, y: 8.25, z: 15.000001}
-  m_Center: {x: -10.587844, y: 0, z: -5}
 --- !u!114 &114440106911857122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +56,18 @@ MonoBehaviour:
   patronNum: 1
   patronId: 1
   nextPatron: 0
+--- !u!135 &135783317293877608
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1370834504655270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212079915334246112
 SpriteRenderer:
   m_ObjectHideFlags: 1

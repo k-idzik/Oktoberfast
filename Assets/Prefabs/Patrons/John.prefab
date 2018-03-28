@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4900784431325868}
   - component: {fileID: 212851422593842006}
-  - component: {fileID: 65611091917502782}
   - component: {fileID: 114510306471511504}
+  - component: {fileID: 135236906099590858}
   m_Layer: 0
   m_Name: John
   m_TagString: Patron
@@ -42,18 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65611091917502782
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1870107515585494}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 41.012215, y: 8.25, z: 15.000001}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114510306471511504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +56,18 @@ MonoBehaviour:
   patronNum: 0
   patronId: 2
   nextPatron: 3
+--- !u!135 &135236906099590858
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870107515585494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212851422593842006
 SpriteRenderer:
   m_ObjectHideFlags: 1
