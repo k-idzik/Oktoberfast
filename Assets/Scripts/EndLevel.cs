@@ -5,13 +5,13 @@ using UnityEngine;
 public class EndLevel : MonoBehaviour
 {
     MenuManager menuManager;
-    AccelerometerController aController;
+    Player aController;
 
 	//Use this for initialization
 	void Start()
     {
         menuManager = GameObject.Find("MenuManager").GetComponent<MenuManager>();
-        aController = GameObject.Find("AccelCam").GetComponent<AccelerometerController>();
+        aController = GameObject.Find("Player").GetComponent<Player>();
     }
 	
 	//Update is called once per frame

@@ -234,12 +234,12 @@ Prefab:
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 485.5
+      value: 468
       objectReference: {fileID: 0}
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 273
+      value: 305
       objectReference: {fileID: 0}
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
@@ -361,6 +361,19 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724601826}
+    - target: {fileID: 225618906977514556, guid: a7825018467971648ba1d135cb6e36e4,
+        type: 2}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994823909584564, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
+      propertyPath: m_Name
+      value: Control Scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637749297923902, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
+      propertyPath: m_Name
+      value: BackBtn
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
   m_IsPrefabParent: 0

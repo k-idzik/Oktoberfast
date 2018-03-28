@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Utilize the mobile accelerometer as a controller
-public class AccelerometerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     //DEBUG
     //private UnityEngine.UI.Text[] tiltAmounts; //UI text
@@ -331,6 +331,8 @@ public class AccelerometerController : MonoBehaviour
         //When the player taps, serve the patron
         if (coll.tag == "Patron")
         {
+            Patron patronServed = coll.GetComponent<Patron>();
+
             if (deliverBeerText[0].fontSize < 300)
             {
                 deliverBeerText[0].fontSize += 30;
@@ -347,25 +349,10 @@ public class AccelerometerController : MonoBehaviour
             shakeAmount *= -1; //Flip to make the beer shake the other way the next frame
 
 #if UNITY_EDITOR //Debug controls
-            if (Input.GetKey(KeyCode.B) && !isBeerServed)
-            {
-                //Deliver beer
-                beersServed++;
-                patronsServedUI.text = "Patrons Served: " + beersServed;
-                isBeerServed = true;
-
-                //Don't tip bad service
-                if (maxBeerTilt < 100)
-                    maxBeerTilt = 0;
-
-                beerTipAmount += (maxBeerTilt * 2) / 100; //Calculate the tip
-
-                //Disable the beer text
-                deliverBeerText[0].enabled = false;
-                deliverBeerText[1].enabled = false;
-            }
+            if (Input.GetKey(KeyCode.B) && !isBeerServed && patronServed.PatronNum == BeersServed + 1)
 #else
-            if (Input.GetTouch(0).phase == TouchPhase.Began && !isBeerServed)
+            if (Input.GetTouch(0).phase == TouchPhase.Began && !isBeerServed  && patronServed.PatronNum == BeersServed + 1)
+#endif
             {
                 //Deliver beer
                 beersServed++;
@@ -381,9 +368,12 @@ public class AccelerometerController : MonoBehaviour
                 //Disable the beer text
                 deliverBeerText[0].enabled = false;
                 deliverBeerText[1].enabled = false;
+
+                //Set Next Patron to Serve 
+                MenuManager.Instance.SwitchPatronTarget(patronServed.NextPatron);
             }
-#endif
         }
+
     }
 
     //Exit trigger with patron

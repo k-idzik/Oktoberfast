@@ -51,5 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc94631bd9e265e478ee42613a604f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseMenu: {fileID: 0}
+  joelPatron: {fileID: 1501491710076110, guid: 08c6e983e1699b34783d203a63268c57, type: 2}
+  joshPatron: {fileID: 1492546341082902, guid: 620ff0556d5039449b3527e1fb44f02d, type: 2}
+  johnPatron: {fileID: 1890947984197542, guid: 2f12250a31a4fae4b93151642e4f5f72, type: 2}
+  unknownPatron: {fileID: 1045971699141602, guid: b2014ecf187383b41911aff5e9f9e036,
+    type: 2}
   currentScreen: 0

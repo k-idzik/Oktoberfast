@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : Singleton<MenuManager>
 {
     public enum Screen { MAIN_MENU = 0, GAME = 1, PAUSE = 2 };
 
@@ -23,6 +23,13 @@ public class MenuManager : MonoBehaviour
     private Text timeCompleted;
     //private Button tryAgainBtn;
     private Button continueBtn;
+
+    //Patron Target Prefabs
+    private GameObject patronTarget;
+    [SerializeField] private GameObject joelPatron;
+    [SerializeField] private GameObject joshPatron;
+    [SerializeField] private GameObject johnPatron;
+    [SerializeField] private GameObject unknownPatron;
 
     //Menu Manager variables
     [SerializeField] private Screen currentScreen;
@@ -45,6 +52,7 @@ public class MenuManager : MonoBehaviour
         StartMenu = GameObject.Find("StartMenu").GetComponent<CanvasGroup>();
         ControlsMenu = GameObject.Find("ControlsMenu").GetComponent<CanvasGroup>();
         CreditsMenu = GameObject.Find("CreditsMenu").GetComponent<CanvasGroup>();
+
     }
 	
 	//Update is called once per frame
@@ -125,6 +133,34 @@ public class MenuManager : MonoBehaviour
         TurnOn(EndLevelMenu);
     }
 
+    public void SwitchPatronTarget(Patron.Patrons newTarget)
+    {
+        //Delete Old Patron Target
+        if (patronTarget != null)
+        {
+            Destroy(patronTarget);
+        }
+
+        switch (newTarget)
+        {
+            case Patron.Patrons.JOEL:
+                patronTarget = Instantiate(joelPatron,GameUI.transform);
+                break;
+
+            case Patron.Patrons.JOHN:
+                patronTarget = Instantiate(johnPatron, GameUI.transform);
+                break;
+
+            case Patron.Patrons.JOSH:
+                patronTarget = Instantiate(joshPatron, GameUI.transform);
+                break;
+
+            case Patron.Patrons.UNKNOWN:
+                patronTarget = Instantiate(unknownPatron, GameUI.transform);
+                break;
+        }
+    }
+
     public void ToggleDebug()
     {
         if(DebugOn)
@@ -187,6 +223,19 @@ public class MenuManager : MonoBehaviour
                 break;
 
             case "Game":
+                //Get Game UI
+                GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
+                //Set First Patron Target to serve
+                Patron[] patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
+                foreach(Patron patron in patrons)
+                {
+                    if(patron.PatronNum == 1)
+                    {
+                        SwitchPatronTarget(patron.PatronId);
+                        break;
+                    }
+                }
+
                 //Configure Pause Menus
                 PauseMenu = GameObject.Find("PauseMenu").GetComponent<CanvasGroup>();
                 GameObject.Find("PauseBtn").GetComponent<Button>().onClick.AddListener(PauseGame);
