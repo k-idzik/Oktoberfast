@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
         Move();
 
         //Let steins rotate
-        steins[0].transform.Rotate(Vector3.forward, 12 * -beerSpillAccelerometer * Time.deltaTime);
+        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -beerSpillAccelerometer * Time.deltaTime);
 #endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer

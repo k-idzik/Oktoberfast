@@ -2316,6 +2316,36 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: speed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: brakeForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: minSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: turnSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: steinRotateSpeed
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114899680096915682, guid: 5f590ea7f4314d94e8401e3b96582f4d,
+        type: 2}
+      propertyPath: returnRotationRate
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f590ea7f4314d94e8401e3b96582f4d, type: 2}
   m_IsPrefabParent: 0
@@ -4001,6 +4031,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 2100000, guid: 0df5366d3bf2a844da9ebde74e2ee800, type: 2}
+    - target: {fileID: 1962642174634066, guid: 20bc766d82766fc40ae0a3e3c0af77c5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20bc766d82766fc40ae0a3e3c0af77c5, type: 2}
   m_IsPrefabParent: 0
