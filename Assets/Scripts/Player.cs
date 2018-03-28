@@ -57,8 +57,8 @@ public class Player : MonoBehaviour
     private double maxBeerTilt = 180; //Max beer spilled, factors into tipping
     private Vector3 initialBeerPosition; //The initial position of the beer, used in beer refilling
 
-    private bool tableCollision = false; //If the player is colliding with a table
-    private bool canCollide = true; //If the player can collide with a table (prevents multiple collisions/spills on the same object)
+    public bool obstacleCollision = false; //If the player is colliding with a table
+    public bool canCollide = true; //If the player can collide with a table (prevents multiple collisions/spills on the same object)
 
     //Properties
     public int BeersServed
@@ -214,7 +214,7 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        else if (!tableCollision)
+        else
         {
             speed += brakeForce;
 
@@ -243,7 +243,7 @@ public class Player : MonoBehaviour
             if (speed < minSpeed)
                 speed = minSpeed;
         }
-        else if (!tableCollision)
+        else
         {
             speed += brakeForce;
 
@@ -283,37 +283,6 @@ public class Player : MonoBehaviour
         maxBeerTilt = 180;
     }
 
-    //Colliding with table
-    private void OnCollisionEnter(Collision coll)
-    {
-        if (coll.gameObject.tag == "Table" && canCollide)
-        {
-            Handheld.Vibrate(); //Vibrate to indicate collision with table
-
-            //Stop movement
-            tableCollision = true;
-            canCollide = false;
-            speed = 0;
-
-            //Spill beer
-            beers[0].rectTransform.Translate(new Vector3(0, -25, 0), Space.Self);
-            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-
-            maxBeerTilt -= 25; //Automatically lose points when you hit a table (should be 50 cents)
-        }
-    }
-
-    //Leaving collision with table
-    private void OnCollisionExit(Collision coll)
-    {
-        if (coll.gameObject.tag == "Table")
-        {
-            tableCollision = false; //Resume movement
-
-            StartCoroutine(WaitForNextTableCollision()); //Make sure no immediate collisions occur again
-        }
-    }
-
     //Entering trigger with patron
     private void OnTriggerEnter(Collider coll)
     {
@@ -323,6 +292,23 @@ public class Player : MonoBehaviour
             //Enable the beer text
             deliverBeerText[0].enabled = true;
             deliverBeerText[1].enabled = true;
+        }
+
+        if (coll.gameObject.tag == "Obstacle" && canCollide)
+        {
+            Handheld.Vibrate(); //Vibrate to indicate collision with table
+
+            //Stop movement
+            //obstacleCollision = true;
+            canCollide = false;
+            StartCoroutine(WaitForNextTableCollision()); //Make sure no immediate collisions occur again
+            speed = 0;
+
+            //Spill beer
+            beers[0].rectTransform.Translate(new Vector3(0, -25, 0), Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+
+            maxBeerTilt -= 25; //Automatically lose points when you hit a table (should be 50 cents)
         }
     }
 
@@ -379,17 +365,27 @@ public class Player : MonoBehaviour
     //Exit trigger with patron
     private void OnTriggerExit(Collider coll)
     {
-        //Disable the beer text
-        deliverBeerText[0].enabled = false;
-        deliverBeerText[1].enabled = false;
+        if (coll.tag == "Patron")
+        {
+            //Disable the beer text
+            deliverBeerText[0].enabled = false;
+            deliverBeerText[1].enabled = false;
 
-        RefillBeer(); //Refill the stein
+            RefillBeer(); //Refill the stein
+        }
+
+        //if (coll.gameObject.tag == "Obstacle")
+        //{
+        //    obstacleCollision = false; //Resume movement
+
+        //    StartCoroutine(WaitForNextTableCollision()); //Make sure no immediate collisions occur again
+        //}
     }
 
     //Coroutine, wait until you can collide again
     private IEnumerator WaitForNextTableCollision()
     {
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(1.50f);
 
         canCollide = true;
     }

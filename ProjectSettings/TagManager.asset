@@ -9,6 +9,7 @@ TagManager:
   - Patron
   - Table
   - NumServed
+  - Obstacle
   layers:
   - Default
   - TransparentFX

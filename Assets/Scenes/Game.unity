@@ -125,9 +125,10 @@ GameObject:
   - component: {fileID: 18835484}
   - component: {fileID: 18835483}
   - component: {fileID: 18835482}
+  - component: {fileID: 18835485}
   m_Layer: 0
   m_Name: chair.003 (2)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +155,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 18835480}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.713013, y: 1.532182, z: 0.69384485}
@@ -202,6 +203,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 18835480}
   m_Mesh: {fileID: 4300000, guid: 44240acd758fe7a4a98f9cc25ad62426, type: 3}
+--- !u!114 &18835485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 18835480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &32108012
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,9 +606,10 @@ GameObject:
   - component: {fileID: 116262701}
   - component: {fileID: 116262700}
   - component: {fileID: 116262699}
+  - component: {fileID: 116262702}
   m_Layer: 0
   m_Name: table.005
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -624,7 +637,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 116262697}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.741151, y: 1.1113601, z: 2.8286736}
@@ -673,6 +686,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 116262697}
   m_Mesh: {fileID: 4300000, guid: f9716e096f518fb4fb2a8df53aa3b2c0, type: 3}
+--- !u!114 &116262702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116262697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &156678471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,9 +1159,10 @@ GameObject:
   - component: {fileID: 229132151}
   - component: {fileID: 229132150}
   - component: {fileID: 229132149}
+  - component: {fileID: 229132152}
   m_Layer: 0
   m_Name: chair.002 (1)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1156,21 +1181,18 @@ Transform:
   m_Father: {fileID: 1932497464}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -202.76399, z: 0}
---- !u!64 &229132149
-MeshCollider:
+--- !u!65 &229132149
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 64027417327725446, guid: 64a86a0571c508747bd89857a0906f7f,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 229132147}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: cdde8be27303d8b4d9121e24be5a73bd, type: 3}
+  m_Size: {x: 0.7130132, y: 1.6287792, z: 0.6793209}
+  m_Center: {x: -0.0000029032594, y: 0.81439507, z: -0.041399267}
 --- !u!23 &229132150
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1214,6 +1236,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 229132147}
   m_Mesh: {fileID: 4300000, guid: cdde8be27303d8b4d9121e24be5a73bd, type: 3}
+--- !u!114 &229132152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 229132147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &240420662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,9 +1442,10 @@ GameObject:
   - component: {fileID: 309047955}
   - component: {fileID: 309047954}
   - component: {fileID: 309047953}
+  - component: {fileID: 309047956}
   m_Layer: 0
   m_Name: bench.003
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1438,7 +1472,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309047951}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.24, y: 0.7770794, z: 0.87569326}
@@ -1486,6 +1520,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 309047951}
   m_Mesh: {fileID: 4300000, guid: efca1dd4f7a3e0c42847fa64962e7a09, type: 3}
+--- !u!114 &309047956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 309047951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &316320917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,9 +3242,10 @@ GameObject:
   - component: {fileID: 871314454}
   - component: {fileID: 871314453}
   - component: {fileID: 871314452}
+  - component: {fileID: 871314455}
   m_Layer: 0
   m_Name: bench.003 (1)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3226,7 +3272,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 871314450}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.24, y: 0.7770794, z: 0.87569326}
@@ -3274,6 +3320,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 871314450}
   m_Mesh: {fileID: 4300000, guid: efca1dd4f7a3e0c42847fa64962e7a09, type: 3}
+--- !u!114 &871314455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871314450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &878051972
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,12 +3859,12 @@ Prefab:
     - target: {fileID: 224631273270734328, guid: 20bc766d82766fc40ae0a3e3c0af77c5,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 766
+      value: 481
       objectReference: {fileID: 0}
     - target: {fileID: 224631273270734328, guid: 20bc766d82766fc40ae0a3e3c0af77c5,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 386.5
+      value: 298.5
       objectReference: {fileID: 0}
     - target: {fileID: 224631273270734328, guid: 20bc766d82766fc40ae0a3e3c0af77c5,
         type: 2}
@@ -4035,9 +4092,10 @@ GameObject:
   - component: {fileID: 1022611714}
   - component: {fileID: 1022611713}
   - component: {fileID: 1022611712}
+  - component: {fileID: 1022611715}
   m_Layer: 0
   m_Name: table.004 (1)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4065,7 +4123,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1022611710}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.7911716, y: 0.9851443, z: 2.9099374}
@@ -4114,6 +4172,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1022611710}
   m_Mesh: {fileID: 4300000, guid: bc0758d33e7f83e4099227d2482d8b71, type: 3}
+--- !u!114 &1022611715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1022611710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1034355775
 Prefab:
   m_ObjectHideFlags: 0
@@ -4507,9 +4576,10 @@ GameObject:
   - component: {fileID: 1117287303}
   - component: {fileID: 1117287302}
   - component: {fileID: 1117287301}
+  - component: {fileID: 1117287304}
   m_Layer: 0
   m_Name: chair.003 (3)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4536,7 +4606,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1117287299}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.7130132, y: 1.532182, z: 0.69384503}
@@ -4584,6 +4654,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1117287299}
   m_Mesh: {fileID: 4300000, guid: 44240acd758fe7a4a98f9cc25ad62426, type: 3}
+--- !u!114 &1117287304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1117287299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1153305660
 GameObject:
   m_ObjectHideFlags: 0
@@ -8382,9 +8463,10 @@ GameObject:
   - component: {fileID: 1194177572}
   - component: {fileID: 1194177571}
   - component: {fileID: 1194177570}
+  - component: {fileID: 1194177573}
   m_Layer: 0
   m_Name: table
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8412,7 +8494,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1194177568}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.791172, y: 0.9851443, z: 2.909938}
@@ -8461,6 +8543,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1194177568}
   m_Mesh: {fileID: 4300000, guid: 9a07cb271d871ab49ab442220ee08629, type: 3}
+--- !u!114 &1194177573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194177568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200448855
 GameObject:
   m_ObjectHideFlags: 0
@@ -12078,9 +12171,10 @@ GameObject:
   - component: {fileID: 1227203396}
   - component: {fileID: 1227203395}
   - component: {fileID: 1227203394}
+  - component: {fileID: 1227203397}
   m_Layer: 0
   m_Name: chair_canvas
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12107,7 +12201,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1227203392}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9418554, y: 0.5941773, z: 0.71064866}
@@ -12156,6 +12250,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1227203392}
   m_Mesh: {fileID: 4300000, guid: f47807d1df4a44044bc2bff0dca48c6e, type: 3}
+--- !u!114 &1227203397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227203392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1229351324
 GameObject:
   m_ObjectHideFlags: 0
@@ -13101,9 +13206,10 @@ GameObject:
   - component: {fileID: 1388106870}
   - component: {fileID: 1388106869}
   - component: {fileID: 1388106868}
+  - component: {fileID: 1388106871}
   m_Layer: 0
   m_Name: chair (1)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13130,7 +13236,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1388106866}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5991698, y: 0.6336401, z: 0.59652215}
@@ -13178,6 +13284,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1388106866}
   m_Mesh: {fileID: 4300000, guid: 93a521334bc9ba64abc5084cfe713fcb, type: 3}
+--- !u!114 &1388106871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1388106866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1399176202
 GameObject:
   m_ObjectHideFlags: 0
@@ -16799,9 +16916,10 @@ GameObject:
   - component: {fileID: 1493807494}
   - component: {fileID: 1493807493}
   - component: {fileID: 1493807492}
+  - component: {fileID: 1493807495}
   m_Layer: 0
   m_Name: chair.002
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16820,21 +16938,18 @@ Transform:
   m_Father: {fileID: 1932497464}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1493807492
-MeshCollider:
+--- !u!65 &1493807492
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 64754929027291554, guid: 64a86a0571c508747bd89857a0906f7f,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1493807490}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: cdde8be27303d8b4d9121e24be5a73bd, type: 3}
+  m_Size: {x: 0.71301293, y: 1.6287792, z: 0.6793207}
+  m_Center: {x: -0.0000029057264, y: 0.81439507, z: -0.041399255}
 --- !u!23 &1493807493
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16878,6 +16993,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1493807490}
   m_Mesh: {fileID: 4300000, guid: cdde8be27303d8b4d9121e24be5a73bd, type: 3}
+--- !u!114 &1493807495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1493807490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1518118625
 GameObject:
   m_ObjectHideFlags: 0
@@ -17346,9 +17472,10 @@ GameObject:
   - component: {fileID: 1707402460}
   - component: {fileID: 1707402459}
   - component: {fileID: 1707402458}
+  - component: {fileID: 1707402461}
   m_Layer: 0
   m_Name: chair.003 (1)
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17375,7 +17502,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1707402456}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.7130132, y: 1.532182, z: 0.69384503}
@@ -17423,6 +17550,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1707402456}
   m_Mesh: {fileID: 4300000, guid: 44240acd758fe7a4a98f9cc25ad62426, type: 3}
+--- !u!114 &1707402461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1707402456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1774040320
 GameObject:
   m_ObjectHideFlags: 0
@@ -17511,9 +17649,10 @@ GameObject:
   - component: {fileID: 1795006825}
   - component: {fileID: 1795006824}
   - component: {fileID: 1795006823}
+  - component: {fileID: 1795006826}
   m_Layer: 0
   m_Name: chair
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17540,7 +17679,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1795006821}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5991698, y: 0.6336401, z: 0.59652215}
@@ -17588,6 +17727,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1795006821}
   m_Mesh: {fileID: 4300000, guid: 93a521334bc9ba64abc5084cfe713fcb, type: 3}
+--- !u!114 &1795006826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1795006821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1799359936
 GameObject:
   m_ObjectHideFlags: 0
@@ -17828,9 +17978,10 @@ GameObject:
   - component: {fileID: 1901063371}
   - component: {fileID: 1901063370}
   - component: {fileID: 1901063369}
+  - component: {fileID: 1901063372}
   m_Layer: 0
   m_Name: table.004
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17858,7 +18009,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901063367}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.7911716, y: 0.9851443, z: 2.9099374}
@@ -17907,6 +18058,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1901063367}
   m_Mesh: {fileID: 4300000, guid: bc0758d33e7f83e4099227d2482d8b71, type: 3}
+--- !u!114 &1901063372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1901063367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1909612074
 GameObject:
   m_ObjectHideFlags: 0
@@ -25239,9 +25401,10 @@ GameObject:
   - component: {fileID: 2102107609}
   - component: {fileID: 2102107608}
   - component: {fileID: 2102107607}
+  - component: {fileID: 2102107610}
   m_Layer: 0
   m_Name: chair.003
-  m_TagString: Table
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25268,7 +25431,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102107605}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.71301293, y: 1.532182, z: 0.6938448}
@@ -25316,6 +25479,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2102107605}
   m_Mesh: {fileID: 4300000, guid: 44240acd758fe7a4a98f9cc25ad62426, type: 3}
+--- !u!114 &2102107610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102107605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ca03d88857fdc45990e6d0b4c334e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2109944506
 GameObject:
   m_ObjectHideFlags: 0
