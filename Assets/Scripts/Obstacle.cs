@@ -18,10 +18,7 @@ public class Obstacle : MonoBehaviour {
     //Colliding with table
     private void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "Player")
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 
     //Leaving collision with table

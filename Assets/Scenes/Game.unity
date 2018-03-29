@@ -766,6 +766,111 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65914493459919626, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65682942317516580, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65954085679868864, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65167226742277868, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65368209545007808, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65045579264254314, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65552783984187056, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65361137025216892, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65317200627846532, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65111898209323040, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65379234248533806, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65765671487866402, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65750043741034828, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65681372542928186, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65310554690074858, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65116305010059832, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65909247381310194, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65815281676803362, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65409731889282134, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65024799013911300, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65729478503095958, guid: 7ab976a1ddd553d47b194deb62101ae9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ab976a1ddd553d47b194deb62101ae9, type: 2}
   m_IsPrefabParent: 0
