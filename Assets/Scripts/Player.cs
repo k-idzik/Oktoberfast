@@ -13,22 +13,22 @@ public class Player : MonoBehaviour
     private List<UnityEngine.UI.Image> beers;
 
     // the initial point to rotate the stein and beer back to
-    //private Quaternion initSteinRotation;
-    //private Quaternion initBeerRotation;
-    //private Vector3 initBeerPos;
+    private Quaternion initSteinRotation;
+    private Quaternion initBeerRotation;
+    private Vector3 initBeerPos;
 
     // rate at which stein turns
-    //public float steinRotateSpeed = 1f;
+    public float steinRotateSpeed = 1f;
 
     // rate at which beer spills
-    //public float beerSpilledRate = 0.5f;
+    public float beerSpilledRate = 0.5f;
 
     // rate at which stein and beer rotate to normal
-    //public float returnRotationRate = 8f;
+    public float returnRotationRate = 8f;
 
     // values to hold upper corners of the steins and beers
-    //private Vector3[] steinCorners;
-    //private Vector3[] beerCorners;
+    private Vector3[] steinCorners;
+    private Vector3[] beerCorners;
 
     //float minRotation = -90;
     //float maxRotation = 90;
@@ -103,13 +103,13 @@ public class Player : MonoBehaviour
         }
 
         // initialize stein and beer rotation
-        //initSteinRotation = steins[0].transform.rotation;
-        //initBeerRotation = beers[0].transform.rotation;
-        //initBeerPos = beers[0].transform.position;
+        initSteinRotation = steins[0].transform.rotation;
+        initBeerRotation = beers[0].transform.rotation;
+        initBeerPos = beers[0].transform.position;
 
         // initialize corners arrays
-        //steinCorners = new Vector3[4];
-        //beerCorners = new Vector3[4];
+        steinCorners = new Vector3[4];
+        beerCorners = new Vector3[4];
 
         //Keep the screen on
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -131,21 +131,21 @@ public class Player : MonoBehaviour
         MovePC();
 
         // simple way to prevent beer from roatating
-        //beers[0].transform.rotation = initBeerRotation;
+        beers[0].transform.rotation = initBeerRotation;
 
         //Let steins rotate
-        //steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
+        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -Input.GetAxis("Horizontal") * Time.deltaTime);
 
         //DON'T REMOVE THIS
         //OR YE SHALL FACE THE WRATH OF BRÜCE ON JUICE
 #else
         // simple way to prevent beer from roatating
-        //beers[0].transform.rotation = initBeerRotation;
-        //beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
+        beers[0].transform.rotation = initBeerRotation;
+        beers[0].transform.position.Set(0, beers[0].transform.position.y, beers[0].transform.position.z);
 
         //Get accelerometer vector
         accelerometer = Input.acceleration.x;
-        //beerSpillAccelerometer = accelerometer;
+        beerSpillAccelerometer = accelerometer;
 
         //Ignore really small movements
         if (Mathf.Abs(accelerometer) < accelerometerLimit)
@@ -159,28 +159,28 @@ public class Player : MonoBehaviour
         Move();
 
         //Let steins rotate
-        //steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -beerSpillAccelerometer * Time.deltaTime);
+        steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -beerSpillAccelerometer * Time.deltaTime);
 #endif
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
         // 1 = top left
         // 2 = top right
-        //steins[0].rectTransform.GetWorldCorners(steinCorners);
-        //beers[0].rectTransform.GetWorldCorners(beerCorners);
+        steins[0].rectTransform.GetWorldCorners(steinCorners);
+        beers[0].rectTransform.GetWorldCorners(beerCorners);
 
-        //// if either corner of the stein is greater than the corner of the beer the beer should spill
-        //if (steinCorners[2].y < beerCorners[2].y)
-        //{
-        //    beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
-        //    beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-        //}
-        //else if (steinCorners[1].y < beerCorners[1].y)
-        //{
-        //    beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
-        //    beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
-        //}
+        // if either corner of the stein is greater than the corner of the beer the beer should spill
+        if (steinCorners[2].y < beerCorners[2].y)
+        {
+            beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+        }
+        else if (steinCorners[1].y < beerCorners[1].y)
+        {
+            beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+        }
 
-        //CalculateTiltFactor(); //Calculate the tilt factor
+        CalculateTiltFactor(); //Calculate the tilt factor
 
         //Display framerate for debug
         //tiltAmounts[0].text = "FPS: " + (1 / Time.deltaTime).ToString();
@@ -223,11 +223,11 @@ public class Player : MonoBehaviour
         }
 
         //// stein should rotate back to center
-        //if (accelerometer == 0f)
-        //{
-        //    steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
-        //    beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
-        //}
+        if (accelerometer == 0f)
+        {
+            steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
+            beers[0].transform.rotation = Quaternion.RotateTowards(beers[0].transform.rotation, initBeerRotation, returnRotationRate * Time.deltaTime);
+        }
 
         //Move forward
         transform.Translate(0, 0, speed * Time.deltaTime);
@@ -255,8 +255,8 @@ public class Player : MonoBehaviour
         }
 
         //// stein should rotate back to center
-        //if (Input.GetAxis("Horizontal") == 0f)
-        //    steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
+        if (Input.GetAxis("Horizontal") == 0f)
+            steins[0].transform.rotation = Quaternion.RotateTowards(steins[0].transform.rotation, initSteinRotation, returnRotationRate * Time.deltaTime);
 
         //Move forward
         transform.Translate(0, 0, speed * Time.deltaTime);
