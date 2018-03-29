@@ -227,16 +227,16 @@ public class MenuManager : Singleton<MenuManager>
             case (int)Screen.GAME:
                 //Get Game UI
                 GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
-                //Set First Patron Target to serve
-                Patron[] patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
-                foreach(Patron patron in patrons)
-                {
-                    if(patron.PatronNum == 1)
-                    {
-                        SwitchPatronTarget(patron.PatronId);
-                        break;
-                    }
-                }
+                ////Set First Patron Target to serve
+                //Patron[] patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
+                //foreach(Patron patron in patrons)
+                //{
+                //    if(patron.PatronNum == 1)
+                //    {
+                //        SwitchPatronTarget(patron.PatronId);
+                //        break;
+                //    }
+                //}
 
                 //Configure Pause Menus
                 PauseMenu = GameObject.Find("PauseMenu").GetComponent<CanvasGroup>();
@@ -255,6 +255,8 @@ public class MenuManager : Singleton<MenuManager>
                 timeCompleted = GameObject.Find("timeCompleted").GetComponent<Text>();
                 GameObject.Find("TryAgainBtn").GetComponent<Button>().onClick.AddListener(delegate { Time.timeScale = 1; GoToScene(0); });
                 continueBtn = GameObject.Find("ContinueBtn").GetComponent<Button>();
+
+                GameManager.Instance.StartGame();
                 break;
         }
         Debug.Log("OnSceneLoaded: " + scene.name);

@@ -5,6 +5,9 @@ using UnityEngine;
 //Utilize the mobile accelerometer as a controller
 public class Player : MonoBehaviour
 {
+    //Game Manger
+    GameManager gameManager;
+
     //DEBUG
     //private UnityEngine.UI.Text[] tiltAmounts; //UI text
 
@@ -85,6 +88,8 @@ public class Player : MonoBehaviour
     //Use this for initialization
     void Start()
     {
+        gameManager = GameManager.Instance;
+
         //DEBUG
         //tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
 
@@ -292,13 +297,6 @@ public class Player : MonoBehaviour
     //Entering trigger with patron
     private void OnTriggerEnter(Collider coll)
     {
-        //Make sure this is the patron
-        if (coll.tag == "Patron")
-        {
-            //Enable the beer text
-            deliverBeerText[0].enabled = true;
-            deliverBeerText[1].enabled = true;
-        }
 
         if (coll.gameObject.tag == "Obstacle" && canCollide)
         {
@@ -324,45 +322,53 @@ public class Player : MonoBehaviour
         if (coll.tag == "Patron")
         {
             Patron patronServed = coll.GetComponent<Patron>();
+            if (patronServed == gameManager.CurrentPatron) {
+                //Enable the beer text
+                deliverBeerText[0].enabled = true;
+                deliverBeerText[1].enabled = true;
 
-            if (deliverBeerText[0].fontSize < 300)
-            {
-                deliverBeerText[0].fontSize += 30;
-                deliverBeerText[1].fontSize += 30;
-            }
+                if (deliverBeerText[0].fontSize < 300)
+                {
+                    deliverBeerText[0].fontSize += 30;
+                    deliverBeerText[1].fontSize += 30;
+                }
 
-            //Precalculate shake value
-            float shakeTextZ = Mathf.Sin(Time.time) * shakeAmount;
+                //Precalculate shake value
+                float shakeTextZ = Mathf.Sin(Time.time) * shakeAmount;
 
-            //Shake beer delivery text to make it stand out
-            deliverBeerText[0].transform.Rotate(0, 0, shakeTextZ);
-            deliverBeerText[1].transform.Rotate(0, 0, -shakeTextZ);
+                //Shake beer delivery text to make it stand out
+                deliverBeerText[0].transform.Rotate(0, 0, shakeTextZ);
+                deliverBeerText[1].transform.Rotate(0, 0, -shakeTextZ);
 
-            shakeAmount *= -1; //Flip to make the beer shake the other way the next frame
+                shakeAmount *= -1; //Flip to make the beer shake the other way the next frame
 
 #if UNITY_EDITOR //Debug controls
-            if (Input.GetKey(KeyCode.B) && !isBeerServed && patronServed.PatronNum == BeersServed + 1)
+                if (Input.GetKey(KeyCode.B) && !isBeerServed)
 #else
-            if (Input.GetTouch(0).phase == TouchPhase.Began && !isBeerServed  && patronServed.PatronNum == BeersServed + 1)
+                if (Input.GetTouch(0).phase == TouchPhase.Began && !isBeerServed)
 #endif
-            {
-                //Deliver beer
-                beersServed++;
-                patronsServedUI.text = "Patrons Served: " + beersServed;
-                isBeerServed = true;
+                {
+                    //Deliver beer
+                    beersServed++;
+                    patronsServedUI.text = "Patrons Served: " + beersServed;
+                    isBeerServed = true;
 
-                //Don't tip bad service
-                if (maxBeerTilt < 100)
-                    maxBeerTilt = 0;
+                    //Don't tip bad service
+                    if (maxBeerTilt < 100)
+                        maxBeerTilt = 0;
 
-                beerTipAmount += (maxBeerTilt * 2) / 100; //Calculate the tip
+                    beerTipAmount += (maxBeerTilt * 2) / 100; //Calculate the tip
 
-                //Disable the beer text
-                deliverBeerText[0].enabled = false;
-                deliverBeerText[1].enabled = false;
+                    //Disable the beer text
+                    deliverBeerText[0].enabled = false;
+                    deliverBeerText[1].enabled = false;
 
-                //Set Next Patron to Serve 
-                MenuManager.Instance.SwitchPatronTarget(patronServed.NextPatron);
+                    //Determine next Patron to serve
+                    Patron newPatron = gameManager.NewPatronTarget();
+
+                    //Set Next Patron to Serve 
+                    MenuManager.Instance.SwitchPatronTarget(newPatron.PatronId);
+                }
             }
         }
     }

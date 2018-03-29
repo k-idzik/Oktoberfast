@@ -9,10 +9,26 @@ public class Patron : MonoBehaviour {
     //Patron Attributes
     [SerializeField] private int patronNum = 0;  //What number Patron is this in the level
     [SerializeField] private Patrons patronId;     //Which Patron is this? (Josh, Joel, or John)
-    //[SerializeField] private Patrons nextPatron; //Which Patron should player Serve Next
+    private bool currentPatron = false; //Is this Patron the current patron target for the Player
+    private SpriteRenderer spriteRenderer;
+    
 
     //Patron Getters
     public int PatronNum { get { return patronNum; } }          //Returns the Patron Id Number
     public Patrons PatronId { get { return patronId; } }            //Return who this Patron is
-    //public Patrons NextPatron { get { return nextPatron; } }    //Return Next Patron that player should serve
+    public bool CurrentPatron
+    {
+        get { return currentPatron; }
+        set
+        {
+            currentPatron = value;
+        }
+    }
+    public SpriteRenderer Renderer { get { return spriteRenderer; } }
+
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 }
