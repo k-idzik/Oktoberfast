@@ -198,11 +198,13 @@ public class MenuManager : Singleton<MenuManager>
         switch(screenEnum)
         {
             case (int)Screen.MAIN_MENU:
+                currentScreen = Screen.MAIN_MENU;
                 SceneManager.LoadScene("MainMenu");
                 break;
 
             case (int)Screen.GAME:
-                SceneManager.LoadScene("Game");
+                currentScreen = Screen.GAME;
+                SceneManager.LoadScene("Josh Test");
                 break;
         }
     }
@@ -215,14 +217,14 @@ public class MenuManager : Singleton<MenuManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        switch (scene.name)
+        switch ((int)currentScreen)
         {
-            case "MainMenu":
+            case (int)Screen.MAIN_MENU:
                 currentScreen = Screen.MAIN_MENU;
                 //Destroy(this);
                 break;
 
-            case "Game":
+            case (int)Screen.GAME:
                 //Get Game UI
                 GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
                 //Set First Patron Target to serve
