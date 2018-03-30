@@ -215,7 +215,7 @@ public class MenuManager : Singleton<MenuManager>
 
             case (int)Screen.GAME:
                 currentScreen = Screen.GAME;
-                SceneManager.LoadScene("Charles");
+                SceneManager.LoadScene("Game");
                 break;
         }
     }
