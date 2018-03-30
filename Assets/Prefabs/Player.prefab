@@ -162,6 +162,7 @@ MonoBehaviour:
   brakeForce: 0.5
   minSpeed: 1
   turnSpeed: 65
+  knockbackSpeed: 25
   obstacleCollision: 0
   canCollide: 1
 --- !u!124 &124968831042165894

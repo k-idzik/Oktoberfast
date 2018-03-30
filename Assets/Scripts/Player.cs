@@ -45,6 +45,9 @@ public class Player : MonoBehaviour
 	public float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
 	public float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
 	public float turnSpeed = 50.0f;    //How fast player turns
+    public float knockbackSpeed = 30.0f;
+    private Rigidbody rb;
+    private bool knockbackOver = true;
 
     //Screen/Device Variables
     private bool screenTouched;
@@ -115,6 +118,7 @@ public class Player : MonoBehaviour
         //tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
 
         deliverBeerText = GameObject.Find("FlyBys").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text for beer delivery
+        rb = GetComponent<Rigidbody>();
 
         // populate steins array and beers array
         steins = new List<UnityEngine.UI.Image>();
@@ -187,6 +191,9 @@ public class Player : MonoBehaviour
         //Let steins rotate
         steins[0].transform.Rotate(Vector3.forward, steinRotateSpeed * -beerSpillAccelerometer * Time.deltaTime);
 #endif
+        if (knockbackOver)
+            rb.velocity = Vector3.zero;
+
         // after stein rotates perform check to see if any beer has spilt
         // first, retrieve upper right and upper left corners of stein and beer
         // 1 = top left
@@ -335,6 +342,24 @@ public class Player : MonoBehaviour
 
             maxBeerTilt -= 25; //Automatically lose points when you hit a table (should be 50 cents)
         }
+        else if (coll.gameObject.tag == "Wall" && canCollide)
+        {
+            Handheld.Vibrate();
+
+            canCollide = false;
+            knockbackOver = false;
+            StartCoroutine(WaitForNextTableCollision());
+
+            beers[0].rectTransform.Translate(new Vector3(0, -25, 0), Space.Self);
+            beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
+
+            maxBeerTilt -= 25;
+
+            // bounce player away from wall
+            //transform.Translate(0, 0, -500 * Time.deltaTime);
+            rb.AddForce(-knockbackSpeed * transform.forward, ForceMode.VelocityChange);
+            StartCoroutine(applyKnockback());
+        }
     }
 
     private void OnTriggerStay(Collider coll)
@@ -427,5 +452,12 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1.50f);
 
         canCollide = true;
+    }
+
+    private IEnumerator applyKnockback()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        knockbackOver = true;
     }
 }

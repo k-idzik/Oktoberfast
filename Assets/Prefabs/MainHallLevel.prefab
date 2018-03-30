@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 65682938150141688}
   m_Layer: 0
   m_Name: wood_wall.000 (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 65451976501145380}
   m_Layer: 0
   m_Name: wood_wall.000
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 65142750039073736}
   m_Layer: 0
   m_Name: wood_wall.000 (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2100,7 +2100,7 @@ GameObject:
   - component: {fileID: 65368954498354238}
   m_Layer: 0
   m_Name: wood_wall.000 (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
