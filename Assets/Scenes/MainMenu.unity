@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -281,12 +281,12 @@ Prefab:
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 481
+      value: 485.5
       objectReference: {fileID: 0}
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 298.5
+      value: 273
       objectReference: {fileID: 0}
     - target: {fileID: 224337887734456076, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
@@ -368,32 +368,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114174288599800610, guid: a7825018467971648ba1d135cb6e36e4,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1724601826}
-    - target: {fileID: 224964426586303282, guid: a7825018467971648ba1d135cb6e36e4,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 633.3954
-      objectReference: {fileID: 0}
-    - target: {fileID: 224289794350656010, guid: a7825018467971648ba1d135cb6e36e4,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 629.3955
-      objectReference: {fileID: 0}
-    - target: {fileID: 224819578401402720, guid: a7825018467971648ba1d135cb6e36e4,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 633.3955
-      objectReference: {fileID: 0}
-    - target: {fileID: 114876040140613104, guid: a7825018467971648ba1d135cb6e36e4,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1724601826}
-    - target: {fileID: 114683440035879180, guid: a7825018467971648ba1d135cb6e36e4,
+    - target: {fileID: 114273493451152214, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -403,24 +378,36 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724601826}
-    - target: {fileID: 114273493451152214, guid: a7825018467971648ba1d135cb6e36e4,
+    - target: {fileID: 114683440035879180, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724601826}
-    - target: {fileID: 225618906977514556, guid: a7825018467971648ba1d135cb6e36e4,
+    - target: {fileID: 114876040140613104, guid: a7825018467971648ba1d135cb6e36e4,
         type: 2}
-      propertyPath: m_Alpha
-      value: 0
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1724601826}
+    - target: {fileID: 224819578401402720, guid: a7825018467971648ba1d135cb6e36e4,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 633.3955
       objectReference: {fileID: 0}
-    - target: {fileID: 1994823909584564, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
-      propertyPath: m_Name
-      value: Control Scroll
+    - target: {fileID: 224289794350656010, guid: a7825018467971648ba1d135cb6e36e4,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 629.3955
       objectReference: {fileID: 0}
-    - target: {fileID: 1637749297923902, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
-      propertyPath: m_Name
-      value: BackBtn
+    - target: {fileID: 224964426586303282, guid: a7825018467971648ba1d135cb6e36e4,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 633.3954
       objectReference: {fileID: 0}
+    - target: {fileID: 114174288599800610, guid: a7825018467971648ba1d135cb6e36e4,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1724601826}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7825018467971648ba1d135cb6e36e4, type: 2}
   m_IsPrefabParent: 0

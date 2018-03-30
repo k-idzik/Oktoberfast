@@ -383,7 +383,8 @@ public class Player : MonoBehaviour
             deliverBeerText[0].enabled = false;
             deliverBeerText[1].enabled = false;
 
-            RefillBeer(); //Refill the stein
+            if (isBeerServed)
+                RefillBeer(); //Refill the stein
         }
 
         //if (coll.gameObject.tag == "Obstacle")
