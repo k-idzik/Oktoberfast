@@ -17,6 +17,9 @@ public class MenuManager : Singleton<MenuManager>
     private CanvasGroup DebugUI;
     private CanvasGroup EndLevelMenu;
 
+    //Timer Text
+    private Text patronTimer;
+
     //End Level Screen UI Elements
     private Text patronServed;
     private Text tipsEarned;
@@ -33,6 +36,7 @@ public class MenuManager : Singleton<MenuManager>
 
     //Menu Manager variables
     [SerializeField] private Screen currentScreen;
+    GameManager gameManager;
     private bool DebugOn = false;
 
     private void Awake()
@@ -52,7 +56,7 @@ public class MenuManager : Singleton<MenuManager>
         StartMenu = GameObject.Find("StartMenu").GetComponent<CanvasGroup>();
         ControlsMenu = GameObject.Find("ControlsMenu").GetComponent<CanvasGroup>();
         CreditsMenu = GameObject.Find("CreditsMenu").GetComponent<CanvasGroup>();
-
+        gameManager = GameManager.Instance;
     }
 	
 	//Update is called once per frame
@@ -122,11 +126,11 @@ public class MenuManager : Singleton<MenuManager>
     /// <param name="tipAmount">Amount of tips earned by player</param>
     /// <param name="time">Amount of time it took player to reach end of level</param>
     /// <param name="nextLvl">int value for build order of the scene that contains the next level</param>
-    public void ShowEndLevelScreen(int patronAmount, double tipAmount, double time, int nextLvl)
+    public void ShowEndLevelScreen(int patronAmount, double tipAmount, float time, int nextLvl)
     {
         patronServed.text = patronAmount + " Patrons Served";
         tipsEarned.text = "$ " + tipAmount + " Earned";
-        timeCompleted.text = time.ToString();
+        timeCompleted.text = System.String.Format("{0:0}:{1:00}", Mathf.Floor(time / 60), time % 60);
 
         continueBtn.onClick.AddListener(delegate { GoToScene(nextLvl); });
 
@@ -193,6 +197,13 @@ public class MenuManager : Singleton<MenuManager>
         screen.blocksRaycasts = false;
     }
 
+    public void UpdateTimer()
+    {
+        int timeLeft = gameManager.PatronTime - gameManager.GameTimer;
+        if(timeLeft < 0) { timeLeft = 0; }
+        patronTimer.text = System.String.Format("{0:0}:{1:00}", Mathf.Floor(timeLeft / 60), timeLeft % 60);
+    }
+
     public void GoToScene(int screenEnum)
     {
         switch(screenEnum)
@@ -248,6 +259,7 @@ public class MenuManager : Singleton<MenuManager>
 
                 GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
                 EndLevelMenu = GameObject.Find("EndLevelScreen").GetComponent<CanvasGroup>();
+                patronTimer = GameObject.Find("TimeText").GetComponent<Text>();
 
                 //Find End Level UI elements
                 patronServed = GameObject.Find("Patron Score").GetComponent<Text>();

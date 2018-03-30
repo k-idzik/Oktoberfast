@@ -5,7 +5,13 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager> {
     //Game Manager attributes
     private Patron[] patrons;
-    private Patron currentPatron; //Current Patron target that Player must serve
+    private Patron currentPatron;               //Current Patron target that Player must serve
+    private int gameTimer;                      //Time Left on Game Timer
+    [SerializeField] private int patronTime;    //Time player has to serve patron
+    private Coroutine timer; //Coroutine that holds Patron Timer
+    private float startTime; //Time when game started
+    private MenuManager menuManager;
+    private Player player; 
 
     public Patron[] Patrons
     {
@@ -13,7 +19,8 @@ public class GameManager : Singleton<GameManager> {
     }
 
     public Patron CurrentPatron { get { return currentPatron; } }
-
+    public int GameTimer { get { return gameTimer; } }
+    public int PatronTime { get { return patronTime; } }
     private void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -21,6 +28,9 @@ public class GameManager : Singleton<GameManager> {
 
     public void StartGame()
     {
+        menuManager = MenuManager.Instance;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        startTime = Time.unscaledTime;
         //Get All Patrons in level
         patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
 
@@ -31,12 +41,22 @@ public class GameManager : Singleton<GameManager> {
         currentPatron.CurrentPatron = true;
 
         //Set Patron Target
-        MenuManager.Instance.SwitchPatronTarget(currentPatron.PatronId);
+       menuManager.SwitchPatronTarget(currentPatron.PatronId);
+
+        //Start Patron Timer
+        menuManager.UpdateTimer();
+        timer = StartCoroutine(PatronTimer());
     }
 
     private void ResetGame()
     {
         
+    }
+
+    public void ResetPatronTimer()
+    {
+        gameTimer = 0;
+        menuManager.UpdateTimer();
     }
 
     public Patron NewPatronTarget()
@@ -63,5 +83,22 @@ public class GameManager : Singleton<GameManager> {
             }
         }
         return currentPatron;
+    }
+
+    void GameOver()
+    {
+        Time.timeScale = 0;
+        menuManager.ShowEndLevelScreen(player.BeersServed, player.BeerTipAmount, Time.unscaledTime - startTime, 0);
+    }
+
+    private IEnumerator PatronTimer()
+    {
+        while(gameTimer < PatronTime) //While GameTimer Has Not exceed Patron time
+        {
+            yield return new WaitForSeconds(1);
+            gameTimer++;
+            menuManager.UpdateTimer();
+        }
+        GameOver();
     }
 }

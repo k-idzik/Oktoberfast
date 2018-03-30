@@ -368,6 +368,7 @@ public class Player : MonoBehaviour
 
                     //Set Next Patron to Serve 
                     MenuManager.Instance.SwitchPatronTarget(newPatron.PatronId);
+                    gameManager.ResetPatronTimer();
                 }
             }
         }

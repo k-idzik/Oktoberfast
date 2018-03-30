@@ -28,7 +28,7 @@ public class EndLevel : MonoBehaviour
                 aController.BeerTipAmount = 0;
 
             //Inputing default values for now
-            menuManager.ShowEndLevelScreen(aController.BeersServed, aController.BeerTipAmount, 1.00, 0);
+            menuManager.ShowEndLevelScreen(aController.BeersServed, aController.BeerTipAmount, 1.00f, 0);
         }
     }
 }
