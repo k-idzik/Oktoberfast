@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
     //float maxRotation = 90;
 
     //Player Attributes
-	private float maxSpeed; //This is the original speed player moves at that we use to speed character up till after braking
-    private float speed = 5.0f; //How fast player is currently moving
-	private float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
-	private float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
-	private float turnSpeed = 50.0f;    //How fast player turns
+	public float maxSpeed; //This is the original speed player moves at that we use to speed character up till after braking
+    public float speed = 5.0f; //How fast player is currently moving
+	public float brakeForce = 0.5f;	//Amount to slow player down by while screen is pressed
+	public float minSpeed = 1.0f; 	//Minimum amount of speed character can move at
+	public float turnSpeed = 50.0f;    //How fast player turns
 
     //Screen/Device Variables
     private bool screenTouched;
@@ -174,12 +174,12 @@ public class Player : MonoBehaviour
         beers[0].rectTransform.GetWorldCorners(beerCorners);
 
         // if either corner of the stein is greater than the corner of the beer the beer should spill
-        if (steinCorners[2].y < beerCorners[2].y)
+        if (steinCorners[2].y - 5< beerCorners[2].y)
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[2].y - steinCorners[2].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));
         }
-        else if (steinCorners[1].y < beerCorners[1].y)
+        else if (steinCorners[1].y - 5 < beerCorners[1].y)
         {
             beers[0].rectTransform.Translate(new Vector3(0, -1, 0) * beerSpilledRate * (beerCorners[1].y - steinCorners[1].y) * Time.deltaTime, Space.Self);
             beers[0].rectTransform.anchoredPosition = (new Vector3(0, beers[0].rectTransform.localPosition.y, 0));

@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 81721983568776598}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212985090802454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1, z: -12.21}
+  m_LocalPosition: {x: 0, y: 6.28, z: 0}
   m_LocalScale: {x: 1, y: 0.6962058, z: 1}
   m_Children:
   - {fileID: 4250229946569316}
@@ -154,6 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd2049c408dc6348b2531207ebfb140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  steinRotateSpeed: 20
+  beerSpilledRate: 2
+  returnRotationRate: 40
+  maxSpeed: 0
+  speed: 7.5
+  brakeForce: 0.5
+  minSpeed: 1
+  turnSpeed: 60
   obstacleCollision: 0
   canCollide: 1
 --- !u!124 &124968831042165894

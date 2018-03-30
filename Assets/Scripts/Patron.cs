@@ -11,6 +11,7 @@ public class Patron : MonoBehaviour {
     [SerializeField] private Patrons patronId;     //Which Patron is this? (Josh, Joel, or John)
     private bool currentPatron = false; //Is this Patron the current patron target for the Player
     private SpriteRenderer spriteRenderer;
+    private Camera mainCam;
     
 
     //Patron Getters
@@ -30,5 +31,11 @@ public class Patron : MonoBehaviour {
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    private void Update()
+    {
+        transform.LookAt(mainCam.transform.position, Vector3.up);
     }
 }
