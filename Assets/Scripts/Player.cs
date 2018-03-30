@@ -280,7 +280,7 @@ public class Player : MonoBehaviour
         if (tiltFactor < maxBeerTilt)
             maxBeerTilt = tiltFactor;
 
-        Debug.Log(maxBeerTilt);
+        //Debug.Log(maxBeerTilt);
     }
 
     //Refill beer after it has been served
@@ -294,10 +294,10 @@ public class Player : MonoBehaviour
         maxBeerTilt = 180;
     }
 
-    //Entering trigger with patron
-    private void OnTriggerEnter(Collider coll)
+    //Entering trigger with table
+    //Which uses a collider
+    private void OnCollisionEnter(Collision coll)
     {
-
         if (coll.gameObject.tag == "Obstacle" && canCollide)
         {
             Handheld.Vibrate(); //Vibrate to indicate collision with table
@@ -379,6 +379,10 @@ public class Player : MonoBehaviour
     {
         if (coll.tag == "Patron")
         {
+            //Rotate the beer text back to normal to avoid the ugly
+            deliverBeerText[0].transform.rotation = Quaternion.identity;
+            deliverBeerText[1].transform.rotation = Quaternion.identity;
+
             //Disable the beer text
             deliverBeerText[0].enabled = false;
             deliverBeerText[1].enabled = false;
