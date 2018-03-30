@@ -21,15 +21,34 @@ public class GameManager : Singleton<GameManager> {
     public Patron CurrentPatron { get { return currentPatron; } }
     public int GameTimer { get { return gameTimer; } }
     public int PatronTime { get { return patronTime; } }
+
+    //Instance management to avoid duplicate singletons
+    //https://answers.unity.com/questions/408518/dontdestroyonload-duplicate-object-in-a-singleton.html
+    public static GameManager gameMan;
     private void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        //Prevent duplicates
+        if (!gameMan)
+            gameMan = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame()
     {
-        menuManager = MenuManager.Instance;
+        if (menuManager == null)
+            menuManager = MenuManager.Instance;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        //Can't just get it in the player via instance after restart
+        //So we do it here
+        //Why
+        player.GManager = this;
+        player.MenuMan = menuManager;
+
         startTime = Time.unscaledTime;
         //Get All Patrons in level
         patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
@@ -41,7 +60,10 @@ public class GameManager : Singleton<GameManager> {
         currentPatron.CurrentPatron = true;
 
         //Set Patron Target
-       menuManager.SwitchPatronTarget(currentPatron.PatronId);
+        menuManager.SwitchPatronTarget(currentPatron.PatronId);
+
+        //Reset the game
+        ResetGame();
 
         //Start Patron Timer
         menuManager.UpdateTimer();
@@ -50,7 +72,8 @@ public class GameManager : Singleton<GameManager> {
 
     private void ResetGame()
     {
-        
+        ResetPatronTimer(); //Reset the timer so we can actually replay
+        Time.timeScale = 1; //And let us move
     }
 
     public void ResetPatronTimer()
@@ -62,6 +85,7 @@ public class GameManager : Singleton<GameManager> {
     public Patron NewPatronTarget()
     {
         bool newPatron = false; //indicates whether new patron has been selected yet
+
         while(!newPatron) //While a new Patron has not been Selected
         {
             int patronIndex = Random.Range(0, patrons.Length - 1);
@@ -82,6 +106,7 @@ public class GameManager : Singleton<GameManager> {
                 newPatron = true;
             }
         }
+
         return currentPatron;
     }
 
@@ -97,8 +122,16 @@ public class GameManager : Singleton<GameManager> {
         {
             yield return new WaitForSeconds(1);
             gameTimer++;
+
+            //Check the name of the current scene in case we leave the game via pause
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenu" || UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Controls")
+            {
+                yield break;
+            }
+
             menuManager.UpdateTimer();
         }
+
         GameOver();
     }
 }

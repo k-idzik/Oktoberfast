@@ -6,7 +6,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //Game Manger
-    GameManager gameManager;
+    GameManager gManager;
+
+    //MenuManager
+    MenuManager menuMan;
 
     //DEBUG
     //private UnityEngine.UI.Text[] tiltAmounts; //UI text
@@ -84,12 +87,30 @@ public class Player : MonoBehaviour
             beerTipAmount = value;
         }
     }
+    public GameManager GManager
+    {
+        set
+        {
+            //Can't just get it here via instance after restart
+            //So we just set it in the GameManager
+            //Why
+            gManager = value;
+        }
+    }
+    public MenuManager MenuMan
+    {
+        set
+        {
+            //Can't just get it here via instance after restart
+            //So we just set it in the GameManager, same as above
+            //Again... why
+            menuMan = value;
+        }
+    }
 
     //Use this for initialization
     void Start()
     {
-        gameManager = GameManager.Instance;
-
         //DEBUG
         //tiltAmounts = GameObject.Find("DebugGroup").GetComponentsInChildren<UnityEngine.UI.Text>(); //Pull in the UI text
 
@@ -322,7 +343,8 @@ public class Player : MonoBehaviour
         if (coll.tag == "Patron")
         {
             Patron patronServed = coll.GetComponent<Patron>();
-            if (patronServed == gameManager.CurrentPatron) {
+
+            if (patronServed == gManager.CurrentPatron) {
                 //Enable the beer text
                 deliverBeerText[0].enabled = true;
                 deliverBeerText[1].enabled = true;
@@ -364,11 +386,11 @@ public class Player : MonoBehaviour
                     deliverBeerText[1].enabled = false;
 
                     //Determine next Patron to serve
-                    Patron newPatron = gameManager.NewPatronTarget();
+                    Patron newPatron = gManager.NewPatronTarget();
 
                     //Set Next Patron to Serve 
-                    MenuManager.Instance.SwitchPatronTarget(newPatron.PatronId);
-                    gameManager.ResetPatronTimer();
+                    menuMan.SwitchPatronTarget(newPatron.PatronId);
+                    gManager.ResetPatronTimer();
                 }
             }
         }

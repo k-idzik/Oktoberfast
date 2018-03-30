@@ -40,14 +40,43 @@ public class MenuManager : Singleton<MenuManager>
     GameManager gameManager;
     private bool DebugOn = false;
 
+    //Error prevention
+    public Screen CurrentScreen
+    {
+        get
+        {
+            return currentScreen;
+        }
+    }
+
+    //Instance management to avoid duplicate singletons
+    //https://answers.unity.com/questions/408518/dontdestroyonload-duplicate-object-in-a-singleton.html
+    public static MenuManager menuMan;
     private void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);    
+        //Prevent duplicates
+        if (!menuMan)
+            menuMan = this;
+        else
+        {
+            menuMan.Start(); //Just call start again to get the crap we need
+
+            //Assign all the button events
+            GameObject.Find("StartButton").GetComponent<Button>().onClick.AddListener(delegate { menuMan.GoToScene(3); });
+            GameObject.Find("ControlsButton").GetComponent<Button>().onClick.AddListener(delegate { menuMan.ShowControls(); });
+            GameObject.Find("CreditsButton").GetComponent<Button>().onClick.AddListener(delegate { menuMan.ShowCredits(); });
+            GameObject.Find("BackBtn").GetComponent<Button>().onClick.AddListener(delegate { menuMan.ShowStart(); });
+            GameObject.Find("CreditBack").GetComponent<Button>().onClick.AddListener(delegate { menuMan.ShowStart(); });
+
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
+        //Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -57,7 +86,10 @@ public class MenuManager : Singleton<MenuManager>
         StartMenu = GameObject.Find("StartMenu").GetComponent<CanvasGroup>();
         ControlsMenu = GameObject.Find("ControlsMenu").GetComponent<CanvasGroup>();
         CreditsMenu = GameObject.Find("CreditsMenu").GetComponent<CanvasGroup>();
-        gameManager = GameManager.Instance;
+
+        //Get the instance of the GameManager, even if you think we don't need to
+        if (gameManager == null)
+            gameManager = GameManager.Instance;
     }
 	
 	//Update is called once per frame
@@ -201,7 +233,12 @@ public class MenuManager : Singleton<MenuManager>
     public void UpdateTimer()
     {
         int timeLeft = gameManager.PatronTime - gameManager.GameTimer;
-        if(timeLeft < 0) { timeLeft = 0; }
+
+        if(timeLeft < 0)
+        {
+            timeLeft = 0;
+        }
+
         patronTimer.text = System.String.Format("{0:0}:{1:00}", Mathf.Floor(timeLeft / 60), timeLeft % 60);
     }
 
@@ -275,10 +312,14 @@ public class MenuManager : Singleton<MenuManager>
                 GameObject.Find("TryAgainBtn").GetComponent<Button>().onClick.AddListener(delegate { Time.timeScale = 1; GoToScene(0); });
                 continueBtn = GameObject.Find("ContinueBtn").GetComponent<Button>();
 
-                GameManager.Instance.StartGame();
+                gameManager.StartGame();
+
+                //Restarting the level
+                //Also see GameManager.ResetGame
+                TurnOff(EndLevelMenu); //Turn off the end level menu if we're restarting
                 break;
         }
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log("OnSceneLoaded: " + scene.name);
+        //Debug.Log(mode);
     }
 }
