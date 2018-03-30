@@ -16,8 +16,8 @@ public class Flyby : MonoBehaviour
         mMan = GameObject.Find("MenuManager").GetComponent<MenuManager>(); //Get the GameManager
     }
 
-    //Fixed updates
-    void FixedUpdate()
+    //Update is run once per frame
+    void Update()
     {
 #if UNITY_EDITOR
         mMan.GoToScene(1); //Start game
@@ -26,7 +26,7 @@ public class Flyby : MonoBehaviour
         //Zoom in the instruction
         if (instructions[currentInstruction].transform.localScale.z < 1)
         {
-            instructions[currentInstruction].transform.localScale += new Vector3(.05f, .05f, .05f);
+            instructions[currentInstruction].transform.localScale += new Vector3(.1f, .1f, .1f);
         }
 
         //Advance on screen touch

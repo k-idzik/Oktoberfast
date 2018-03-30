@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     private float accelerometer; //holds acceleration for device
     private float beerSpillAccelerometer; //Separate beer spill acceleration
     private float accelerometerLimit = .15f; //Minimun acceleration needed for turn on mobile
-    //private float beerSpillAccelerometerLimit = .45f; //Separate max beer spill acceleration
+    private float beerSpillAccelerometerLimit = .40f; //Separate max beer spill acceleration
 
     //Beer delivery
     private UnityEngine.UI.Text[] deliverBeerText;
@@ -157,8 +157,8 @@ public class Player : MonoBehaviour
             accelerometer = 0;
 
         //Separate for beer, more tolerance
-        //if (Mathf.Abs(beerSpillAccelerometer) < beerSpillAccelerometerLimit)
-        //    beerSpillAccelerometer = 0;
+        if (Mathf.Abs(beerSpillAccelerometer) < beerSpillAccelerometerLimit)
+            beerSpillAccelerometer = 0;
 
         //Move Player
         Move();
