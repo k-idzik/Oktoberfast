@@ -13,7 +13,7 @@ public class MenuManager : Singleton<MenuManager>
     private CanvasGroup ControlsMenu;
     private CanvasGroup CreditsMenu;
     private CanvasGroup PauseMenu;
-    private CanvasGroup GameUI;
+    private GameObject GameUI;
     private CanvasGroup DebugUI;
     private CanvasGroup EndLevelMenu;
 
@@ -26,6 +26,7 @@ public class MenuManager : Singleton<MenuManager>
     private Text timeCompleted;
     //private Button tryAgainBtn;
     private Button continueBtn;
+    private Button pause;
 
     //Patron Target Prefabs
     private GameObject patronTarget;
@@ -215,7 +216,7 @@ public class MenuManager : Singleton<MenuManager>
 
             case (int)Screen.GAME:
                 currentScreen = Screen.GAME;
-                SceneManager.LoadScene("Charles");
+                SceneManager.LoadScene("Game");
                 break;
         }
     }
@@ -237,7 +238,7 @@ public class MenuManager : Singleton<MenuManager>
 
             case (int)Screen.GAME:
                 //Get Game UI
-                GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
+                GameUI = GameObject.Find("GameUI");
                 ////Set First Patron Target to serve
                 //Patron[] patrons = GameObject.Find("Patrons").GetComponentsInChildren<Patron>();
                 //foreach(Patron patron in patrons)
@@ -251,13 +252,14 @@ public class MenuManager : Singleton<MenuManager>
 
                 //Configure Pause Menus
                 PauseMenu = GameObject.Find("PauseMenu").GetComponent<CanvasGroup>();
-                GameObject.Find("PauseBtn").GetComponent<Button>().onClick.AddListener(PauseGame);
+                DebugUI = GameObject.Find("DebugGroup").GetComponent<CanvasGroup>();
+                pause = GameObject.Find("PauseBtn").GetComponent<Button>();
+                pause.onClick.AddListener(PauseGame);
                 GameObject.Find("ResumeBtn").GetComponent<Button>().onClick.AddListener(ResumeGame);
                 GameObject.Find("RestartBtn").GetComponent<Button>().onClick.AddListener(delegate { Time.timeScale = 1; GoToScene(0); });
                 GameObject.Find("DebugBtn").GetComponent<Button>().onClick.AddListener(ToggleDebug);
                 GameObject.Find("Exit").GetComponent<Button>().onClick.AddListener(Exit);
-
-                GameUI = GameObject.Find("GameUI").GetComponent<CanvasGroup>();
+                
                 EndLevelMenu = GameObject.Find("EndLevelScreen").GetComponent<CanvasGroup>();
                 patronTimer = GameObject.Find("TimeText").GetComponent<Text>();
 
