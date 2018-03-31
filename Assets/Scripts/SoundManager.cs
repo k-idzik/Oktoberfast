@@ -14,10 +14,19 @@ public class SoundManager : Singleton<SoundManager>
 
     protected SoundManager() { }
 
-	void Awake()
-	{
-        //dont touch me when we load a new scene
-		DontDestroyOnLoad(this);
+    //Instance management to avoid duplicate singletons
+    //https://answers.unity.com/questions/408518/dontdestroyonload-duplicate-object-in-a-singleton.html
+    public static SoundManager soundMan;
+    private void Awake()
+    {
+        //Prevent duplicates
+        if (!soundMan)
+            soundMan = this;
+        else
+            Destroy(gameObject);
+
+        //Don't touch me when we load a new scene
+        DontDestroyOnLoad(this);
 	}
 
 	void Start()
@@ -27,8 +36,8 @@ public class SoundManager : Singleton<SoundManager>
         musicSource = gameObject.AddComponent<AudioSource>();
 
         //add sounds to the lib
-       musicLibrary.Add("background", Resources.Load("sfx/Background") as AudioClip);
-       musicLibrary.Add("background_reverse", Resources.Load("sfx/Background_ReverseReverb") as AudioClip);
+        musicLibrary.Add("background", Resources.Load("sfx/Background") as AudioClip);
+        musicLibrary.Add("background_reverse", Resources.Load("sfx/Background_ReverseReverb") as AudioClip);
         musicLibrary.Add("Josh&Joel_BoothShenanigans", Resources.Load("sfx/Josh&Joel_BoothShenanigans") as AudioClip);
 
         sfxLibrary.Add("Charles_AhDasIsGutBeer", Resources.Load("sfx/Charles_AhDasIsGutBeer") as AudioClip);
@@ -57,21 +66,21 @@ public class SoundManager : Singleton<SoundManager>
         sfxLibrary.Add("Joel_ThisIsntWhatIOrdered0", Resources.Load("sfx/Joel_ThisIsntWhatIOrdered0") as AudioClip);
         sfxLibrary.Add("Joel_ThisIsntWhatIOrdered1", Resources.Load("sfx/Joel_ThisIsntWhatIOrdered1") as AudioClip);
         sfxLibrary.Add("Joel_Uhh", Resources.Load("sfx/Joel_Uhh") as AudioClip);
-        sfxLibrary.Add("Joel_YoureKindOftakingALongTime", Resources.Load("sfx/Joel_YoureKindOfTakingALongTime") as AudioClip);
-        sfxLibrary.Add("Joel_YouSpilliedAllMyBeer", Resources.Load("sfx/Joel_YouSpilledAllMyBeer") as AudioClip);
+        sfxLibrary.Add("Joel_YoureKindOfTakingALongTime", Resources.Load("sfx/Joel_YoureKindOfTakingALongTime") as AudioClip);
+        sfxLibrary.Add("Joel_YouSpilledAllMyBeer", Resources.Load("sfx/Joel_YouSpilledAllMyBeer") as AudioClip);
         sfxLibrary.Add("John_CheersMate0", Resources.Load("sfx/John_CheersMate0") as AudioClip);
         sfxLibrary.Add("John_CheersMate1", Resources.Load("sfx/John_CheersMate1") as AudioClip);
         sfxLibrary.Add("John_HeyWatchWhereYoureSpillingThat", Resources.Load("sfx/John_HeyWatchWhereYoureSpillingThat") as AudioClip);
         sfxLibrary.Add("John_ILikeToActuallyDrinkWhatIOrder", Resources.Load("sfx/John_ILikeToActuallyDrinkWhatIOrder") as AudioClip);
         sfxLibrary.Add("John_OhRightOnTime", Resources.Load("sfx/John_OhRightOnTime") as AudioClip);
-        sfxLibrary.Add("John_OhSorryBoutThatDozedOffWithHowLingItTook", Resources.Load("sfx/John_OhSorryBoutThatDozedOffWithHowLongItTook") as AudioClip);
+        sfxLibrary.Add("John_OhSorryBoutThatDozedOffWithHowLongItTook", Resources.Load("sfx/John_OhSorryBoutThatDozedOffWithHowLongItTook") as AudioClip);
         sfxLibrary.Add("John_OiGiveMeOneOfThose", Resources.Load("sfx/John_OiGiveMeOneOfThose") as AudioClip);
         sfxLibrary.Add("John_OiYoureTakingAWhile", Resources.Load("sfx/John_OiYoureTakingAWhile") as AudioClip);
         sfxLibrary.Add("John_OyThanks", Resources.Load("sfx/John_OyThanks") as AudioClip);
         sfxLibrary.Add("John_OyThanksMateYouSaint", Resources.Load("sfx/John_OyThanksMateYouSaint") as AudioClip);
         sfxLibrary.Add("John_Snore", Resources.Load("sfx/John_Snore") as AudioClip);
         sfxLibrary.Add("John_WhyIEvenComeHere", Resources.Load("sfx/John_WhyIEvenComeHere") as AudioClip);
-        sfxLibrary.Add("John_SnoreOhSorryBoutThatDozedOffWithHowLingItTook", Resources.Load("sfx/John_SnoreOhSorryBoutThatDozedOffWithHowLongItTook") as AudioClip);
+        sfxLibrary.Add("John_SnoreOhSorryBoutThatDozedOffWithHowLongItTook", Resources.Load("sfx/John_SnoreOhSorryBoutThatDozedOffWithHowLongItTook") as AudioClip);
         sfxLibrary.Add("John_YeahIdLikeMyBeerFullThanks", Resources.Load("sfx/John_YeahIdLikeMyBeerFullThanks") as AudioClip);
         sfxLibrary.Add("John_YeahIllHaveAnotherOneOfThose", Resources.Load("sfx/John_YeahIllHaveAnotherOneOfThose") as AudioClip);
         sfxLibrary.Add("Josh_BringMeABeer0", Resources.Load("sfx/Josh_BringMeABeer0") as AudioClip);
@@ -95,7 +104,7 @@ public class SoundManager : Singleton<SoundManager>
 
         //loop background music
         musicSource.loop = true; //turn on looping
-       musicSource.clip = musicLibrary["background"]; //set default song
+        musicSource.clip = musicLibrary["background"]; //set default song
         ChangeMusicVolume(0);
         musicSource.Play(); //play music
 	}
@@ -112,7 +121,7 @@ public class SoundManager : Singleton<SoundManager>
         if (!GameObject.Find("One shot audio"))
         {
             //play sound again
-            PlaySfxAt(name, this.gameObject.transform.position, volume);
+            PlaySfxAt(name, gameObject.transform.position, volume);
         }
     }
 

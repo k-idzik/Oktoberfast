@@ -90,6 +90,13 @@ public class Player : MonoBehaviour
             beerTipAmount = value;
         }
     }
+    public double MaxBeerTilt
+    {
+        get
+        {
+            return maxBeerTilt;
+        }
+    }
     public GameManager GManager
     {
         set
